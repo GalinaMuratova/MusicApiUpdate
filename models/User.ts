@@ -1,8 +1,10 @@
-import mongoose from "mongoose";
+import {Model, model, Schema} from "mongoose";
+import bcrypt from 'bcrypt';
+import {IUser} from "../types";
 
-const Schema = mongoose.Schema;
+const SALT_WORK_FACTOR= 10;
 
-const UserSchema = new Schema({
+const UserSchema= new Schema<IUser> ({
     username: {
         type: String,
         unique: true,
@@ -10,19 +12,24 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        unique: true,
         required: true
-    },
-    token: {
-        type: String,
-        unique: true,
     }
 });
 
-UserSchema.pre('save', function(next) {
-    this.password="something";
+UserSchema.pre('save',  async function(next) {
+    if (!this.isModified('password')) return next();
+    const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
+    this.password = await bcrypt.hash(this.password, salt);
     next();
 });
 
-const User = mongoose.model('User', UserSchema);
+UserSchema.set('toJSON', {
+    transform:(doc, ret, options) => {
+        delete ret.password;
+        return ret;
+    }
+});
+
+
+const User = model('User', UserSchema);
 export default User;
