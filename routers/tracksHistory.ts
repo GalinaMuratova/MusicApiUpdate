@@ -2,14 +2,8 @@ import express from "express";
 import User from "../models/User";
 import TrackHistory from "../models/TrackHistory";
 import {imagesUpload} from "../multer";
-import Track from "../models/Track";
 
 const tracksHistoryRouter = express.Router();
-
-tracksHistoryRouter.get('/', async (req, res) => {
-    const tracks = await TrackHistory.find().populate('track', 'name').populate('user','username');
-    res.send(tracks);
-});
 
 tracksHistoryRouter.post('/',imagesUpload.single('image'), async (req, res) => {
     const token = req.get('Authorization');

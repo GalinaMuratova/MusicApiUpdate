@@ -1,6 +1,4 @@
 import mongoose, {model, Schema} from "mongoose";
-import Artist from "./Artist";
-import Album from "./Album";
 import User from "./User";
 import Track from "./Track";
 
