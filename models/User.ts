@@ -1,16 +1,28 @@
 import {Model, model, Schema} from "mongoose";
 import bcrypt from 'bcrypt';
 import {IUser} from "../types";
+import {randomUUID} from "crypto";
 
 const SALT_WORK_FACTOR= 10;
 
-const UserSchema= new Schema<IUser> ({
+interface IUserMethods {
+    checkPassword(password:string): Promise<boolean>;
+    generateToken():void;
+
+}
+type UserModel = Model<IUser, {}, IUserMethods>;
+
+const UserSchema= new Schema<IUser, UserModel, IUserMethods> ({
     username: {
         type: String,
         unique: true,
         required: true
     },
     password: {
+        type: String,
+        required: true
+    },
+    token: {
         type: String,
         required: true
     }
@@ -30,6 +42,14 @@ UserSchema.set('toJSON', {
     }
 });
 
+UserSchema.methods.checkPassword = function (password){
+    return bcrypt.compare(password, this.password);
+};
 
-const User = model('User', UserSchema);
+UserSchema.methods.generateToken = function () {
+    this.token = randomUUID();
+}
+
+
+const User = model<IUser, UserModel>('User', UserSchema);
 export default User;

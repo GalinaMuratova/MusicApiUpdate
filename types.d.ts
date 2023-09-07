@@ -19,5 +19,6 @@ export interface ITrack {
 
 export interface IUser {
     username: string,
-    password:string
+    password:string,
+     token: string
 }
