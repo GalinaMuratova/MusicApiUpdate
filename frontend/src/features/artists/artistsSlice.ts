@@ -1,7 +1,6 @@
 import { Artist } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchArtists } from './artistsThunk';
-import { RootState } from '../../app/store';
 
 interface ArtistsState {
   items: Artist[];
