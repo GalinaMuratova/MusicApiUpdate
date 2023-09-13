@@ -24,7 +24,7 @@ const TrackHistorySchema = new Schema( {
     datetime: {
         type: String,
         required: true
-    }
+    },
 });
 
 const TrackHistory = model('TrackHistory', TrackHistorySchema);

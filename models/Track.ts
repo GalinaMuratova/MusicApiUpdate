@@ -17,7 +17,11 @@ const TrackSchema = new Schema({
             message: 'There is no such album'
         }
     },
-    duration: String
+    duration: String,
+    number: {
+        type: Number,
+        required: true
+    }
 });
 
 const Track = mongoose.model('Track', TrackSchema);
