@@ -29,22 +29,22 @@ const run = async () => {
         name: 'Too Weird to Live, Too Rare to Die!',
         image:'fixtures/tooweirdtolivetooraretodie.jpg',
         artist: artist1._id,
-        year: '2013'
+        year: 2013
     }, {
         name: 'A Fever You Can’t Sweat Out',
         image: 'fixtures/afeveryoucantsweatout.jpeg',
         artist: artist1._id,
-        year:'2015'
+        year:2005
     }, {
         name: 'The Wall',
         image:'fixtures/thewall.jpg',
         artist: artist2._id,
-        year: '1979'
+        year: 1979
     }, {
         name: 'The dark side of the moon',
         image: 'fixtures/thedarksideofthemoon.jpeg',
         artist: artist2._id,
-        year:'1973'
+        year:1973
     });
     await Track.create ({
         name: 'This is Gospel',
