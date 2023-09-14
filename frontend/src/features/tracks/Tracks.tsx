@@ -5,6 +5,7 @@ import {RootState} from "../../app/store";
 import {Typography} from "@mui/material";
 import TrackBlock from "./components/TrackBlock/TrackBlock";
 import {fetchTracks} from "./tracksThunk";
+import {fetchOneAlbum} from "../albums/albumsThunk";
 
 const Tracks = () => {
     const {id} = useParams();
@@ -16,6 +17,7 @@ const Tracks = () => {
     useEffect(() => {
         if (id) {
             dispatch(fetchTracks(id));
+            dispatch(fetchOneAlbum(id));
         }
     }, [dispatch]);
 

@@ -1,6 +1,6 @@
 import { Album } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchAlbums } from './albumsThunk';
+import {fetchAlbums, fetchOneAlbum} from './albumsThunk';
 
 interface AlbumsState {
   items: Album[];
@@ -29,6 +29,16 @@ export const albumsSlice = createSlice({
       state.artist = artists.map((el) => {return el.artist.name})[0];
     });
     builder.addCase(fetchAlbums.rejected, (state) => {
+      state.fetchLoading = false;
+    });
+    builder.addCase(fetchOneAlbum.pending, (state) => {
+      state.fetchLoading = true;
+    });
+    builder.addCase(fetchOneAlbum.fulfilled, (state, {payload: artists}) => {
+      state.fetchLoading = false;
+      state.artist = artists.artist.name;
+    });
+    builder.addCase(fetchOneAlbum.rejected, (state) => {
       state.fetchLoading = false;
     })
   }

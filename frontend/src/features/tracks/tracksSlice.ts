@@ -6,14 +6,14 @@ interface TracksSlice {
     items: Track[],
     fetchLoading: boolean;
     createLoading: boolean;
-    album: string
+    album: string,
 }
 
 const initialState: TracksSlice = {
     items: [],
     fetchLoading: false,
     createLoading: false,
-    album:''
+    album:'',
 };
 
 export const tracksSlice = createSlice({
@@ -24,7 +24,6 @@ export const tracksSlice = createSlice({
         builder.addCase(fetchTracks.pending, (state) => {
             state.fetchLoading = true;
         });
-
         builder.addCase(fetchTracks.fulfilled, (state, {payload: tracks}) => {
             state.fetchLoading = false;
             state.items = tracks;

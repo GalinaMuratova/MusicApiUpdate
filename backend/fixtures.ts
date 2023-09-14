@@ -15,7 +15,7 @@ const run = async () => {
         console.log('Collection were not present');
     }
 
-    const [artist1,artist2] = await Artist.create({
+    const [artist1,artist2, artist3] = await Artist.create({
         name: 'Panic! At the disco',
         information:'Американская рок-группа из Лас-Вегаса, штат Невада. На данный момент единственным участником группы является Брендон Ури',
         image:'fixtures/patd.jpeg'
@@ -23,9 +23,13 @@ const run = async () => {
         name: 'Pink floyd',
         information:'Британская рок-группа, знаменитая своими продолжительными композициями и объединёнными в тематические сюиты песнями, звуковыми экспериментами, философскими текстами, дизайном обложек альбомов и грандиозными концертными шоу.',
         image:'fixtures/pinkfloyd.jpeg'
+    }, {
+        name: 'Zemfira',
+        information:'Российская рок-певица, музыкант, композитор, продюсер, поэтесса и автор песен. ',
+        image:'fixtures/zemfira.jpg'
     });
 
-    const [album1,album2, album3,album4] = await Album.create({
+    const [album1,album2, album3,album4, album5, album6, album7] = await Album.create({
         name: 'Too Weird to Live, Too Rare to Die!',
         image:'fixtures/tooweirdtolivetooraretodie.jpg',
         artist: artist1._id,
@@ -45,6 +49,21 @@ const run = async () => {
         image: 'fixtures/thedarksideofthemoon.jpeg',
         artist: artist2._id,
         year:1973
+    }, {
+        name: 'Прости меня моя любовь',
+        image:'fixtures/pmml.jpg',
+        artist: artist3._id,
+        year: 2000
+    },{
+        name: 'Четырнадцать недель тишины',
+        image:'fixtures/14nedel.jpg',
+        artist: artist3._id,
+        year: 2007
+    },{
+        name: 'Pray for the Wicked',
+        image:'fixtures/PrayForTheWicked.jpg',
+        artist: artist1._id,
+        year: 2018
     });
     await Track.create ({
         name: 'This is Gospel',
@@ -146,6 +165,91 @@ const run = async () => {
         number: 5,
         album: album4._id,
         duration: '4:12'
+    },{
+        name: 'Хочешь?',
+        number: 1,
+        album: album5._id,
+        duration: '3:07'
+    },{
+        name: 'Ненавижу',
+        number: 2,
+        album: album5._id,
+        duration: '3:24'
+    },{
+        name: 'Доказано',
+        number: 3,
+        album: album5._id,
+        duration: '3:17'
+    },{
+        name: 'П.М.М.Л.',
+        number: 4,
+        album: album5._id,
+        duration: '3:26'
+    },{
+        name: 'Не отпускай',
+        number: 5,
+        album: album5._id,
+        duration: '4:12'
+    },{
+        name: 'Лондон',
+        number: 6,
+        album: album5._id,
+        duration: '4:12'
+    },{
+        name: '∞',
+        number: 1,
+        album: album6._id,
+        duration: '3:07'
+    },{
+        name: 'Кто?',
+        number: 2,
+        album: album6._id,
+        duration: '3:24'
+    },{
+        name: 'Паранойя',
+        number: 3,
+        album: album6._id,
+        duration: '3:17'
+    },{
+        name: 'Главное',
+        number: 4,
+        album: album6._id,
+        duration: '3:26'
+    },{
+        name: 'Ощущенья',
+        number: 5,
+        album: album6._id,
+        duration: '4:12'
+    },{
+        name:'(Fuck A) Silver Lining',
+        number:1,
+        album:album7._id,
+        duration:'3:12'
+    } ,{
+        name:'Say Amen (Saturday Night)',
+        number:2,
+        album:album7._id,
+        duration:'3:11'
+    },{
+        name:'Hey Look Ma, I Made It',
+        number:3,
+        album:album7._id,
+        duration:'2:49'
+    },{
+        name:'High Hopes',
+        number:4,
+        album:album7._id,
+        duration:'3:12'
+    },{
+        name:'Dancing`s Not a Crime',
+        number:5,
+        album:album7._id,
+        duration:'3:25'
+    },{
+        name:'One of the Drunks',
+        number:6,
+        album:album7._id,
+        duration:'3:39'
     });
     await db.close();
 };
