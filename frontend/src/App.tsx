@@ -3,6 +3,7 @@ import HomePage from './containers/HomePage/HomePage';
 import { Route, Routes } from 'react-router-dom';
 import OneArtistPage from './containers/OneArtistPage/OneArtistPage';
 import './index.css';
+import AlbumTracksPage from "./containers/AlbumTracksPage/AlbumTracksPage";
 
 const App = () => {
   return (
@@ -10,6 +11,7 @@ const App = () => {
     <Routes>
       <Route path='/' element={(<HomePage />)}/>
       <Route path='/albums/:id' element={(<OneArtistPage/>)}/>
+      <Route path='/tracks/:id' element={(<AlbumTracksPage />)} />
     </Routes>
     </>
   );

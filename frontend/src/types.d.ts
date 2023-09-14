@@ -15,3 +15,14 @@ export interface Album {
   year: number;
   image: string | null
 }
+
+export interface  Track {
+  _id: string;
+  name: string,
+  duration: string,
+  number: number,
+  album: {
+    _id: string,
+    name: string
+  }
+}
