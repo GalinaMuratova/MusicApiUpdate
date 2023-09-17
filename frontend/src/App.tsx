@@ -1,18 +1,30 @@
 import React from 'react';
-import HomePage from './containers/HomePage/HomePage';
 import { Route, Routes } from 'react-router-dom';
-import OneArtistPage from './containers/OneArtistPage/OneArtistPage';
 import './index.css';
-import AlbumTracksPage from "./containers/AlbumTracksPage/AlbumTracksPage";
+import Register from './features/users/Register';
+import { Container, CssBaseline } from '@mui/material';
+import AppToolbar from './components/UI/AppToolbar/AppToolbar';
+import Artists from './features/artists/Artists';
+import Albums from './features/albums/Albums';
+import Tracks from './features/tracks/Tracks';
 
 const App = () => {
   return (
     <>
-    <Routes>
-      <Route path='/' element={(<HomePage />)}/>
-      <Route path='/albums/:id' element={(<OneArtistPage/>)}/>
-      <Route path='/tracks/:id' element={(<AlbumTracksPage />)} />
-    </Routes>
+      <CssBaseline/>
+        <header>
+          <AppToolbar />
+        </header>
+        <main>
+          <Container>
+            <Routes>
+              <Route path='/' element={(<Artists />)}/>
+              <Route path='/albums/:id' element={(<Albums/>)}/>
+              <Route path='/tracks/:id' element={(<Tracks />)} />
+              <Route path='/register' element={(<Register />)} />
+            </Routes>
+          </Container>
+        </main>
     </>
   );
 }

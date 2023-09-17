@@ -3,6 +3,8 @@ import config from "./config";
 import Artist from "./models/Artist";
 import Album from "./models/Album";
 import Track from "./models/Track";
+import User from "./models/User";
+import * as crypto from "crypto";
 const run = async () => {
     await mongoose.connect(config.db);
     const db = mongoose.connection;
@@ -11,6 +13,7 @@ const run = async () => {
         await db.dropCollection('artists');
         await db.dropCollection('albums');
         await db.dropCollection('tracks');
+        await db.dropCollection('users');
     } catch (e) {
         console.log('Collection were not present');
     }
@@ -250,6 +253,15 @@ const run = async () => {
         number:6,
         album:album7._id,
         duration:'3:39'
+    });
+    await User.create({
+        username:'Anna',
+        password:'lala',
+        token: crypto.randomUUID()
+    },{
+        username:'Sam',
+        password:'123',
+        token: crypto.randomUUID()
     });
     await db.close();
 };
