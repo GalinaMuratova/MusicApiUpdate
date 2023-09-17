@@ -7,6 +7,7 @@ import AppToolbar from './components/UI/AppToolbar/AppToolbar';
 import Artists from './features/artists/Artists';
 import Albums from './features/albums/Albums';
 import Tracks from './features/tracks/Tracks';
+import Login from './features/users/Login';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
               <Route path='/albums/:id' element={(<Albums/>)}/>
               <Route path='/tracks/:id' element={(<Tracks />)} />
               <Route path='/register' element={(<Register />)} />
+              <Route path="/login" element={<Login/>} />
             </Routes>
           </Container>
         </main>

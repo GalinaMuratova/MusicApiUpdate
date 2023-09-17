@@ -1,26 +1,37 @@
 import React from 'react';
-import { AppBar, Button, styled, Toolbar, Typography } from '@mui/material';
+import { AppBar, Grid, styled, Toolbar, Typography } from '@mui/material';
 import { Link as NavLink } from 'react-router-dom';
+import UserMenu from './UserMenu';
+import AnonymousMenu from './AnonymousMenu';
+import { useAppSelector } from '../../../app/hooks';
+import { selectUser } from '../../../features/users/usersSlice';
 
 const Link = styled(NavLink)({
+  color: 'inherit',
+  textDecoration: 'none',
+  '&:hover': {
     color: 'inherit',
-    textDecoration: 'none',
-    '&:hover': {
-        color: 'inherit',
-    }
+  }
 });
 
 const AppToolbar = () => {
-    return (
-        <AppBar position="sticky" sx={{ mb: 2 }}>
-          <Toolbar>
-            <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-              <Link to="/">About music</Link>
-            </Typography>
-            <Button component={NavLink} to='/register' style={{color:'white'}}>Sign up</Button>
-          </Toolbar>
-        </AppBar>
-    );
+  const user = useAppSelector(selectUser);
+  return (
+    <AppBar position="sticky" sx={{ mb: 2 }}>
+      <Toolbar>
+        <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
+          <Link to="/">CompStore</Link>
+        </Typography>
+        <Grid item>
+          {user ? (
+            <UserMenu user={user}/>
+          ) : (
+            <AnonymousMenu/>
+          )}
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
 };
 
 export default AppToolbar;
