@@ -27,6 +27,17 @@ export interface  Track {
   }
 }
 
+export interface TrackHistory {
+  _id: string,
+  user: string,
+  track: {
+    _id: string,
+    name: string
+  },
+  datetime: string
+}
+
+
 export interface RegisterMutation {
   username: string,
   password: string
@@ -63,3 +74,4 @@ export interface ValidationError {
 export interface GlobalError {
   error: string;
 }
+

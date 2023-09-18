@@ -19,7 +19,7 @@ const Tracks = () => {
             dispatch(fetchTracks(id));
             dispatch(fetchOneAlbum(id));
         }
-    }, [dispatch]);
+    }, [dispatch, id]);
 
     return (
         <>

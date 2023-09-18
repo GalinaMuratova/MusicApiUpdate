@@ -8,6 +8,7 @@ import Artists from './features/artists/Artists';
 import Albums from './features/albums/Albums';
 import Tracks from './features/tracks/Tracks';
 import Login from './features/users/Login';
+import TracksHistory from './features/tracksHistory/TracksHistory';
 
 const App = () => {
   return (
@@ -23,7 +24,8 @@ const App = () => {
               <Route path='/albums/:id' element={(<Albums/>)}/>
               <Route path='/tracks/:id' element={(<Tracks />)} />
               <Route path='/register' element={(<Register />)} />
-              <Route path="/login" element={<Login/>} />
+              <Route path='/login' element={<Login/>} />
+              <Route path='/track_history' element={(<TracksHistory />)} />
             </Routes>
           </Container>
         </main>

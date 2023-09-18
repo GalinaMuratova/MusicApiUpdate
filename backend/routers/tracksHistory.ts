@@ -1,22 +1,23 @@
 import express from "express";
-import User from "../models/User";
 import TrackHistory from "../models/TrackHistory";
-import {imagesUpload} from "../multer";
+import auth, {RequestWithUser} from "../middleware/auth";
 
 const tracksHistoryRouter = express.Router();
 
-tracksHistoryRouter.post('/',imagesUpload.single('image'), async (req, res) => {
-    const token = req.get('Authorization');
-
-    if (!token) {
-        return res.status(401).send({error:'Wrong'});
+tracksHistoryRouter.get('/', auth, async (req, res) => {
+    const user = (req as RequestWithUser).user;
+    try {
+        const trackHistory = await TrackHistory.find({ user: user._id }).populate('track', 'name');
+        res.send(trackHistory);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: 'Internal Server Error' });
     }
+});
 
-    const user = await User.findOne({token});
 
-    if(!user) {
-        return res.status(401).send({error:'Wrong'});
-    }
+tracksHistoryRouter.post('/', auth, async (req, res) => {
+    const user = (req as RequestWithUser).user;
 
     if (!req.body.track) {
         return res.status(400).send({ error: 'Track ID is required in the request body' });
