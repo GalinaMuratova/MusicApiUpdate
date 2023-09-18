@@ -9,17 +9,19 @@ interface Props {
     id: string
     name: string,
     number: number,
-    duration: string
+    duration: string,
+   artist: string
 }
 
-const TrackBlock: React.FC<Props> = ({name, number, duration,id}) => {
+const TrackBlock: React.FC<Props> = ({name, number, duration,id, artist}) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const [playButtonClicked, setPlayButtonClicked] = useState(false);
   const onClick = async () => {
-    await dispatch(postTrackHistory({ track: id }));
+    await dispatch(postTrackHistory({ track: id, artist: artist}));
     setPlayButtonClicked(true);
   };
+
 
   return (
         <Grid item xs={12} sm={6} md={4} lg={3} style={{margin:'10px'}}>

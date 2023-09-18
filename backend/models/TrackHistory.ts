@@ -1,6 +1,7 @@
 import mongoose, {model, Schema} from "mongoose";
 import User from "./User";
 import Track from "./Track";
+import Artist from "./Artist";
 
 const TrackHistorySchema = new Schema( {
     user: {
@@ -25,6 +26,10 @@ const TrackHistorySchema = new Schema( {
         type: String,
         required: true
     },
+    artist: {
+        type: String,
+        required: true,
+    }
 });
 
 const TrackHistory = model('TrackHistory', TrackHistorySchema);

@@ -29,6 +29,7 @@ tracksHistoryRouter.post('/', auth, async (req, res) => {
         user: user._id,
         track: req.body.track,
         datetime: createdAt,
+        artist: req.body.artist
     });
 
     try {

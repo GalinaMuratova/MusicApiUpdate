@@ -14,7 +14,7 @@ export interface IAlbum {
 export interface ITrack {
     name: string,
     album: string,
-    duration: string
+    duration: string,
 }
 
 export interface IUser {

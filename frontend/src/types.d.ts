@@ -34,7 +34,8 @@ export interface TrackHistory {
     _id: string,
     name: string
   },
-  datetime: string
+  datetime: string,
+  artist: string
 }
 
 

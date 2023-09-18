@@ -26,7 +26,7 @@ const Tracks = () => {
             <Typography variant='h4' style={{textAlign:'center'}} >{artist}</Typography>
             <Typography variant='h5' style={{textAlign:'center', color:'gray'}}>{album}</Typography>
             {tracks.map((el) => (
-                <TrackBlock key={el._id} id={el._id} name={el.name} number={el.number} duration={el.duration} />
+                <TrackBlock key={el._id} artist={artist} id={el._id} name={el.name} number={el.number} duration={el.duration} />
             ))}
         </>
     );

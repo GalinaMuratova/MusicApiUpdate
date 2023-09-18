@@ -25,7 +25,6 @@ export const tracksHistorySlice = createSlice({
     });
     builder.addCase(fetchTracksHistory.fulfilled, (state, {payload: tracksHistory}) => {
       state.fetchLoading = false;
-      console.log(tracksHistory);
       state.items = tracksHistory;
     });
     builder.addCase(fetchTracksHistory.rejected, (state) => {

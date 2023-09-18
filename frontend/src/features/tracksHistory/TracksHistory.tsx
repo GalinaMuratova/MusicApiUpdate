@@ -12,12 +12,17 @@ const TracksHistory = () => {
     dispatch(fetchTracksHistory())
   }, [dispatch]);
 
+  const reversedTracks = [...tracksNew].reverse();
+
   return (
     <>
-      <h1>No songs yet</h1>
-      {tracksNew.map((el) => (
-        <TrackHistoryBlock key={el._id} nameTrack={el.track.name} date={el.datetime} />
-      ))}
+      {reversedTracks.length > 0 ? (
+        reversedTracks.map((el) => (
+          <TrackHistoryBlock key={el._id} nameArtist={el.artist} nameTrack={el.track.name} date={el.datetime} />
+        ))
+      ) : (
+        <div>No songs yet</div>
+      )}
     </>
   );
 };

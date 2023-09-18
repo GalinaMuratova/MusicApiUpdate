@@ -4,15 +4,15 @@ import { TrackHistory} from '../../types';
 import { RootState } from '../../app/store';
 
 export const fetchTracksHistory  =createAsyncThunk<TrackHistory[], void, { state: RootState}>(
-  'tracks/fetchAll',
+  'tracksHistory/fetchAll',
   async (_, thunkAPI) => {
     const userState = thunkAPI.getState().usersReducer;
     const trackHistoryResponse = await axiosApi.get<TrackHistory[]>('/track_history', {headers: {'Authorization': userState.user?.token}});
     return trackHistoryResponse.data;
   });
 
-export const postTrackHistory = createAsyncThunk<void, { track: string }, { state: RootState }>(
-  'tracks/postTrackHistory',
+export const postTrackHistory = createAsyncThunk<void, { track: string, artist: string}, { state: RootState }>(
+  'tracksHistory/postTrackHistory',
   async (trackHistoryData, thunkAPI) => {
     const userState = thunkAPI.getState().usersReducer;
 
