@@ -15,10 +15,10 @@ const TrackHistoryBlock: React.FC<Props> = ({nameTrack, date, nameArtist}) => {
         <Card >
           <CardContent>
             <Box display="flex" flexDirection="row">
-              <Typography variant="h6" component="div" style={{color: 'gray'}}>
+              <Typography variant="subtitle1" component="div" style={{color: 'gray'}}>
                 {nameArtist}
               </Typography>
-              <Typography variant="h6" component="div" style={{margin:'0 0 0 50px'}}>
+              <Typography variant="subtitle1" component="div" style={{margin:'0 0 0 50px'}}>
                 {nameTrack}
               </Typography>
               <Typography style={{marginLeft:'auto'}} variant="body1" component="div">

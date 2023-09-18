@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { RegisterMutation } from '../../types';
-import { Avatar, Box, Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
@@ -27,7 +27,7 @@ const Register = () => {
     event.preventDefault();
     try {
       await dispatch(register(state)).unwrap();
-      navigate('/');
+      navigate('/login');
     } catch (e) {
       // error happened
     }
@@ -44,7 +44,7 @@ const Register = () => {
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: 2,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -92,13 +92,13 @@ const Register = () => {
           >
             Sign Up
           </Button>
-          {/*<Grid container justifyContent="flex-end">*/}
-          {/*  <Grid item>*/}
-          {/*    <Link component={RouterLink} to="/login" variant="body2">*/}
-          {/*      Already have an account? Sign in*/}
-          {/*    </Link>*/}
-          {/*  </Grid>*/}
-          {/*</Grid>*/}
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link component={NavLink} to="/login" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>
