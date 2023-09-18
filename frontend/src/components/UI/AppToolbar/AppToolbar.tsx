@@ -5,6 +5,7 @@ import UserMenu from './UserMenu';
 import AnonymousMenu from './AnonymousMenu';
 import { useAppSelector } from '../../../app/hooks';
 import { selectUser } from '../../../features/users/usersSlice';
+import MusicNoteRoundedIcon from '@mui/icons-material/MusicNoteRounded';
 
 const Link = styled(NavLink)({
   color: 'inherit',
@@ -19,8 +20,9 @@ const AppToolbar = () => {
   return (
     <AppBar position="sticky" sx={{ mb: 2 }}>
       <Toolbar>
-        <Typography variant="h4" component="div" sx={{ flexGrow: 1 }}>
-          <Link to="/">CompStore</Link>
+        <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+          <MusicNoteRoundedIcon />
+          <Link to="/">Music</Link>
         </Typography>
         <Grid item>
           {user ? (
