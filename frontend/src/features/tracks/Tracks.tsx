@@ -1,18 +1,20 @@
 import React, {useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
-import {RootState} from "../../app/store";
-import {Typography} from "@mui/material";
+import {CircularProgress, Grid, Typography} from "@mui/material";
 import TrackBlock from "./components/TrackBlock/TrackBlock";
 import {fetchTracks} from "./tracksThunk";
 import {fetchOneAlbum} from "../albums/albumsThunk";
+import {selectOneArtist} from "../albums/albumsSlice";
+import {selectOneAlbum, selectTracks, selectTracksLoading} from "./tracksSlice";
 
 const Tracks = () => {
     const {id} = useParams();
     const dispatch = useAppDispatch();
-    const artist = useAppSelector((state: RootState) => state.albumsReducer.artist);
-    const album = useAppSelector((state: RootState) => state.tracksReducer.album);
-    const tracks = useAppSelector((state: RootState) => state.tracksReducer.items);
+    const artist = useAppSelector(selectOneArtist);
+    const album = useAppSelector(selectOneAlbum);
+    const tracks = useAppSelector(selectTracks);
+    const loading = useAppSelector(selectTracksLoading);
 
     useEffect(() => {
         if (id) {
@@ -23,11 +25,19 @@ const Tracks = () => {
 
     return (
         <>
-            <Typography variant='h4' style={{textAlign:'center'}} >{artist}</Typography>
-            <Typography variant='h5' style={{textAlign:'center', color:'gray'}}>{album}</Typography>
-            {tracks.map((el) => (
-                <TrackBlock key={el._id} artist={artist} id={el._id} name={el.name} number={el.number} duration={el.duration} />
-            ))}
+            {loading ? (
+                <Grid item container justifyContent="center">
+                    <CircularProgress />
+                </Grid>
+            ) : (
+                <>
+                    <Typography variant='h4' style={{textAlign:'center'}} >{artist}</Typography>
+                    <Typography variant='h5' style={{textAlign:'center', color:'gray'}}>{album}</Typography>
+                    {tracks.map((el) => (
+                        <TrackBlock key={el._id} artist={artist} id={el._id} name={el.name} number={el.number} duration={el.duration} />
+                    ))}
+                </>
+            )}
         </>
     );
 };

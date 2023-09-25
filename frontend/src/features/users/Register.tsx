@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { RegisterMutation } from '../../types';
-import { Avatar, Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import {Avatar, Box, Button, CircularProgress, Container, Grid, Link, TextField, Typography} from '@mui/material';
 
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectRegisterError } from './usersSlice';
+import {selectRegisterError, selectRegisterLoading} from './usersSlice';
 import { register } from './usersThunk';
 
 const Register = () => {
@@ -16,6 +16,7 @@ const Register = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectRegisterError);
   const navigate = useNavigate();
+  const loading = useAppSelector(selectRegisterLoading);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
@@ -90,7 +91,7 @@ const Register = () => {
             variant="contained"
             sx={{mt: 3, mb: 2}}
           >
-            Sign Up
+            {loading ? <CircularProgress size={24} style={{ color: '#fafafa' }} /> : 'Sign Up'}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>

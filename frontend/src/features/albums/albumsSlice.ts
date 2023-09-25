@@ -1,6 +1,7 @@
 import { Album } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import {fetchAlbums, fetchOneAlbum} from './albumsThunk';
+import {RootState} from "../../app/store";
 
 interface AlbumsState {
   items: Album[];
@@ -45,3 +46,6 @@ export const albumsSlice = createSlice({
 });
 
 export const albumsReducer = albumsSlice.reducer;
+export const selectAlbums = (state: RootState) => state.albumsReducer.items;
+export const selectOneArtist = (state: RootState) => state.albumsReducer.artist;
+export const selectAlbumsLoading = (state: RootState) => state.albumsReducer.fetchLoading;

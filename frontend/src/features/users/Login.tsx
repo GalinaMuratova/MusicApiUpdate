@@ -1,10 +1,21 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { LoginMutation } from '../../types';
-import { Alert, Avatar, Box, Button, Container, Grid, Link, TextField, Typography } from '@mui/material';
+import {
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  Link,
+  TextField,
+  Typography
+} from '@mui/material';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectLoginError } from './usersSlice';
+import {selectLoginError, selectLoginLoading} from './usersSlice';
 import { login } from './usersThunk';
 
 const Login = () => {
@@ -16,6 +27,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const error = useAppSelector(selectLoginError);
+  const loading = useAppSelector(selectLoginLoading);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
@@ -85,7 +97,7 @@ const Login = () => {
             variant="contained"
             sx={{mt: 3, mb: 2}}
           >
-            Sign In
+            {loading ? <CircularProgress style={{ color: '#fafafa' }}  size={24} /> : 'Sign Up'}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>

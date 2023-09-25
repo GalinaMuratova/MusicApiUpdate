@@ -38,7 +38,9 @@ const TrackBlock: React.FC<Props> = ({name, number, duration,id, artist}) => {
                             {duration}
                         </Typography>
                       {user ? (
-                        <PlayCircleOutlineIcon style={{margin:'0 20px', width:'40px', color: playButtonClicked ? 'blue' : 'inherit'}} onClick={onClick}>Play</PlayCircleOutlineIcon>
+                        <PlayCircleOutlineIcon style={{margin:'0 20px', width:'40px', color: playButtonClicked ? 'blue' : 'inherit'}} onClick={onClick}>
+                            Play
+                        </PlayCircleOutlineIcon>
                       ) : (
                         <></>
                       )}

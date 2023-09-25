@@ -1,7 +1,7 @@
 import { GlobalError, User, ValidationError } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { login, register } from './usersThunk';
+import {login, logout, register} from './usersThunk';
 
 interface UsersState {
   user: User | null,
@@ -9,6 +9,7 @@ interface UsersState {
   registerError: ValidationError | null,
   loginLoading: boolean;
   loginError: GlobalError | null;
+  deleteLoading: boolean
 }
 
 const initialState: UsersState = {
@@ -16,13 +17,18 @@ const initialState: UsersState = {
   registerLoading: false,
   registerError: null,
   loginLoading: false,
-  loginError: null
+  loginError: null,
+  deleteLoading: false
 }
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    unsetUser: (state) => {
+      state.user = null;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
       state.registerLoading = true;
@@ -48,12 +54,23 @@ export const usersSlice = createSlice({
       state.loginLoading = false;
       state.loginError = error || null;
     });
+    builder.addCase(logout.pending, (state) => {
+        state.deleteLoading = true;
+    });
+    builder.addCase(logout.fulfilled, (state) => {
+        state.deleteLoading = false;
+    });
+    builder.addCase(logout.rejected, (state) => {
+        state.deleteLoading = false;
+    });
   },
 });
 
 export const usersReducer = usersSlice.reducer;
+export const {unsetUser} = usersSlice.actions;
 export const selectUser = (state: RootState) => state.usersReducer.user;
 export const selectRegisterLoading = (state: RootState) => state.usersReducer.registerLoading;
 export const selectRegisterError = (state: RootState) => state.usersReducer.registerError;
 export const selectLoginLoading = (state: RootState) => state.usersReducer.loginLoading;
 export const selectLoginError = (state: RootState) => state.usersReducer.loginError;
+export const selectDeleteLoading = (state: RootState) => state.usersReducer.deleteLoading;

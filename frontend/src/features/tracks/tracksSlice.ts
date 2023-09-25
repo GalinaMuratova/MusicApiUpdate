@@ -1,6 +1,7 @@
 import {Track} from "../../types";
 import {createSlice} from "@reduxjs/toolkit";
 import {fetchTracks} from "./tracksThunk";
+import {RootState} from "../../app/store";
 
 interface TracksSlice {
     items: Track[],
@@ -36,3 +37,7 @@ export const tracksSlice = createSlice({
 });
 
 export const tracksReducer = tracksSlice.reducer;
+export const selectTracks = (state: RootState) => state.tracksReducer.items;
+export const selectOneAlbum = (state: RootState) => state.tracksReducer.album;
+export const selectTracksLoading = (state: RootState) => state.tracksReducer.fetchLoading;
+

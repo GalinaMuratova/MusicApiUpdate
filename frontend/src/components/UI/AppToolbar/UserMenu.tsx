@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Menu, MenuItem } from '@mui/material';
+import {Button, CircularProgress, Menu, MenuItem} from '@mui/material';
 import { User } from '../../../types';
 import { Link } from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import {selectDeleteLoading} from '../../../features/users/usersSlice';
+import { logout } from '../../../features/users/usersThunk';
 
 
 interface Props {
@@ -9,11 +12,17 @@ interface Props {
 }
 const UserMenu: React.FC<Props> = ({user}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector(selectDeleteLoading);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
   };
 
   return (
@@ -32,7 +41,9 @@ const UserMenu: React.FC<Props> = ({user}) => {
       >
         <MenuItem>Profile</MenuItem>
         <MenuItem component={Link}  to='/track_history'>My track history</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>
+            {loading ? <CircularProgress size={24} /> : 'Logout'}
+        </MenuItem>
       </Menu>
     </>
   );

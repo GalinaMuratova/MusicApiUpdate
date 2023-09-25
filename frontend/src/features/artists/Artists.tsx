@@ -1,24 +1,32 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchArtists } from './artistsThunk';
-import { RootState } from '../../app/store';
 import ArtistBlock from './components/ArtistBlock/ArtistBlock';
-import { Grid } from '@mui/material';
+import {CircularProgress, Grid} from '@mui/material';
+import {selectArtistLoading, selectArtists} from "./artistsSlice";
 
 const Artists = () => {
   const dispatch = useAppDispatch();
-  const artists = useAppSelector((state: RootState) => state.artistsReducer.items);
+  const artists = useAppSelector(selectArtists);
+  const loading = useAppSelector(selectArtistLoading);
+
   useEffect(() => {
     dispatch(fetchArtists());
   }, [dispatch]);
 
   return (
     <>
-      <Grid container item spacing={2}>
-        {artists.map((el)=> (
-          <ArtistBlock key={el._id} id={el._id} name={el.name} artistsImage={el.image}/>
-        ))}
-      </Grid>
+        {loading ? (
+            <Grid item container justifyContent="center">
+                <CircularProgress />
+            </Grid>
+        ) : (
+            <Grid container item spacing={2}>
+                {artists.map((el)=> (
+                    <ArtistBlock key={el._id} id={el._id} name={el.name} artistsImage={el.image}/>
+                ))}
+            </Grid>
+        )}
     </>
   );
 };
