@@ -3,6 +3,8 @@ import Track from "../models/Track";
 import {ITrack} from "../types";
 import mongoose from "mongoose";
 import {imagesUpload} from "../multer";
+import auth from "../middleware/auth";
+import permit from "../middleware/permit";
 
 const tracksRouter = express.Router();
 
@@ -20,7 +22,7 @@ tracksRouter.get('/', async (req, res) => {
     }
 });
 
-tracksRouter.post('/',  imagesUpload.single('image'),async (req, res, next) => {
+tracksRouter.post('/', auth,  imagesUpload.single('image'),async (req, res, next) => {
     try {
         const trackData: ITrack = {
             name: req.body.name,
@@ -38,5 +40,20 @@ tracksRouter.post('/',  imagesUpload.single('image'),async (req, res, next) => {
         next(e);
     }
 });
+
+tracksRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
+    try {
+        const track = await Track.findOne({_id: req.params.id});
+
+        if (!track) {
+            return res.sendStatus(403);
+        }
+        await Track.deleteOne({_id: req.params.id});
+
+        return res.sendStatus(204);
+    } catch (e) {
+     next(e);
+    }
+})
 
 export default tracksRouter;

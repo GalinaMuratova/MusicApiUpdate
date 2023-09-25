@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import Album from "../models/Album";
 import {IAlbum} from "../types";
 import {imagesUpload} from "../multer";
+import auth from "../middleware/auth";
+import permit from "../middleware/permit";
 
 const albumsRouter = express.Router();
 
@@ -32,7 +34,7 @@ albumsRouter.get('/:id', async(req, res) => {
    }
 });
 
-albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
+albumsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
     try {
         const albumData: IAlbum = {
             name: req.body.name,
@@ -47,6 +49,21 @@ albumsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
         if (e instanceof mongoose.Error.ValidationError) {
             return res.status(400).send(e);
         }
+        next(e);
+    }
+});
+
+albumsRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
+    try {
+        const album = await Album.findOne({_id: req.params.id});
+
+        if (!album) {
+            return res.sendStatus(403);
+        }
+        await Album.deleteOne({_id: req.params.id});
+
+        return res.sendStatus(204);
+    } catch (e) {
         next(e);
     }
 });

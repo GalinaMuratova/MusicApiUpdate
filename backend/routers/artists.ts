@@ -3,6 +3,8 @@ import Artist from "../models/Artist";
 import {imagesUpload} from "../multer";
 import {IArtist} from "../types";
 import mongoose from "mongoose";
+import auth from "../middleware/auth";
+import permit from "../middleware/permit";
 const artistsRouter = express.Router();
 
 artistsRouter.get('/', async (req, res) => {
@@ -14,7 +16,7 @@ artistsRouter.get('/', async (req, res) => {
    }
 });
 
-artistsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => {
+artistsRouter.post('/',auth, imagesUpload.single('image'), async (req, res, next) => {
    try {
       const artistData:IArtist = {
          name: req.body.name,
@@ -28,6 +30,21 @@ artistsRouter.post('/', imagesUpload.single('image'), async (req, res, next) => 
       if (e instanceof mongoose.Error.ValidationError) {
          return res.status(400).send(e);
       }
+      next(e);
+   }
+});
+
+artistsRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
+   try {
+      const artist = await Artist.findOne({_id: req.params.id});
+
+      if (!artist) {
+         return res.sendStatus(403);
+      }
+      await Artist.deleteOne({_id: req.params.id});
+
+      return res.sendStatus(204);
+   } catch (e) {
       next(e);
    }
 });
