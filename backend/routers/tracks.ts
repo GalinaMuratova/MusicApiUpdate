@@ -41,6 +41,24 @@ tracksRouter.post('/', auth,  imagesUpload.single('image'),async (req, res, next
     }
 });
 
+tracksRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res, next) => {
+    try {
+        const published = await Track.findById(req.params.id);
+
+        if (!published) {
+            return res.sendStatus(404);
+        }
+
+        published.isPublished = !published.isPublished;
+
+        await published.save();
+
+        return res.send({ isPublished: published.isPublished });
+    } catch (e) {
+        next(e);
+    }
+});
+
 tracksRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
     try {
         const track = await Track.findOne({_id: req.params.id});

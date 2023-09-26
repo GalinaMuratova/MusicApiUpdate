@@ -28,7 +28,7 @@ export const tracksSlice = createSlice({
         builder.addCase(fetchTracks.fulfilled, (state, {payload: tracks}) => {
             state.fetchLoading = false;
             state.items = tracks;
-            state.album = tracks.map((el) => {return el.album.name})[0];
+            state.album = tracks[0].album.name;
         });
         builder.addCase(fetchTracks.rejected, (state) => {
             state.fetchLoading = false;

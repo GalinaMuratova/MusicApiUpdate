@@ -34,6 +34,24 @@ artistsRouter.post('/',auth, imagesUpload.single('image'), async (req, res, next
    }
 });
 
+artistsRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res, next) => {
+   try {
+      const published = await Artist.findById(req.params.id);
+
+      if (!published) {
+         return res.sendStatus(404);
+      }
+
+      published.isPublished = !published.isPublished;
+
+      await published.save();
+
+      return res.send({ isPublished: published.isPublished });
+   } catch (e) {
+      next(e);
+   }
+});
+
 artistsRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
    try {
       const artist = await Artist.findOne({_id: req.params.id});
@@ -48,5 +66,6 @@ artistsRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
       next(e);
    }
 });
+
 
 export default artistsRouter;

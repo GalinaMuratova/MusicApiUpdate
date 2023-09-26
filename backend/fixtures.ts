@@ -32,7 +32,7 @@ const run = async () => {
         name: 'Zemfira',
         information:'Российская рок-певица, музыкант, композитор, продюсер, поэтесса и автор песен. ',
         image:'fixtures/zemfira.jpg',
-        isPublished: true
+        isPublished: false
     });
 
     const [album1,album2, album3,album4, album5, album6, album7] = await Album.create({
@@ -64,13 +64,13 @@ const run = async () => {
         image:'fixtures/pmml.jpg',
         artist: artist3._id,
         year: 2000,
-        isPublished: true
+        isPublished: false
     },{
         name: 'Четырнадцать недель тишины',
         image:'fixtures/14nedel.jpg',
         artist: artist3._id,
         year: 2007,
-        isPublished: true
+        isPublished: false
     },{
         name: 'Pray for the Wicked',
         image:'fixtures/PrayForTheWicked.jpg',
@@ -203,67 +203,67 @@ const run = async () => {
         number: 1,
         album: album5._id,
         duration: '3:07',
-        isPublished: true
+        isPublished: false
     },{
         name: 'Ненавижу',
         number: 2,
         album: album5._id,
         duration: '3:24',
-        isPublished: true
+        isPublished: false
     },{
         name: 'Доказано',
         number: 3,
         album: album5._id,
         duration: '3:17',
-        isPublished: true
+        isPublished: false
     },{
         name: 'П.М.М.Л.',
         number: 4,
         album: album5._id,
         duration: '3:26',
-        isPublished: true
+        isPublished: false
     },{
         name: 'Не отпускай',
         number: 5,
         album: album5._id,
         duration: '4:12',
-        isPublished: true
+        isPublished: false
     },{
         name: 'Лондон',
         number: 6,
         album: album5._id,
         duration: '4:12',
-        isPublished: true
+        isPublished: false
     },{
         name: '∞',
         number: 1,
         album: album6._id,
         duration: '3:07',
-        isPublished: true
+        isPublished: false
     },{
         name: 'Кто?',
         number: 2,
         album: album6._id,
         duration: '3:24',
-        isPublished: true
+        isPublished: false
     },{
         name: 'Паранойя',
         number: 3,
         album: album6._id,
         duration: '3:17',
-        isPublished: true
+        isPublished: false
     },{
         name: 'Главное',
         number: 4,
         album: album6._id,
         duration: '3:26',
-        isPublished: true
+        isPublished: false
     },{
         name: 'Ощущенья',
         number: 5,
         album: album6._id,
         duration: '4:12',
-        isPublished: true
+        isPublished: false
     },{
         name:'(Fuck A) Silver Lining',
         number:1,

@@ -11,11 +11,10 @@ export const fetchTracksHistory  =createAsyncThunk<TrackHistory[], void, { state
     return trackHistoryResponse.data;
   });
 
-export const postTrackHistory = createAsyncThunk<void, { track: string, artist: string}, { state: RootState }>(
+export const postTrackHistory = createAsyncThunk<void, { track: string, artist: string}>(
   'tracksHistory/postTrackHistory',
-  async (trackHistoryData, thunkAPI) => {
-    const userState = thunkAPI.getState().usersReducer;
+  async (trackHistoryData) => {
 
-    await axiosApi.post('/track_history', trackHistoryData, {headers: { 'Authorization': userState.user?.token }});
+    await axiosApi.post('/track_history', trackHistoryData);
   }
 );

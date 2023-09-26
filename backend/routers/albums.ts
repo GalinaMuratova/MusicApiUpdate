@@ -53,6 +53,24 @@ albumsRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next
     }
 });
 
+albumsRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res, next) => {
+    try {
+        const published = await Album.findById(req.params.id);
+
+        if (!published) {
+            return res.sendStatus(404);
+        }
+
+        published.isPublished = !published.isPublished;
+
+        await published.save();
+
+        return res.send({ isPublished: published.isPublished });
+    } catch (e) {
+        next(e);
+    }
+});
+
 albumsRouter.delete('/:id', auth, permit('admin'), async (req, res, next) => {
     try {
         const album = await Album.findOne({_id: req.params.id});
