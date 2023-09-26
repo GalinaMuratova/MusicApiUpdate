@@ -2,6 +2,13 @@ export interface Artist {
   _id: string;
   name: string;
   information: string;
+  image: string | null,
+  isPublished: boolean
+}
+
+export interface ArtistMutation {
+  name: string;
+  information: string;
   image: string | null
 }
 

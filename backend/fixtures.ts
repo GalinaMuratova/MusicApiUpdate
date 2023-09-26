@@ -21,59 +21,59 @@ const run = async () => {
     const [artist1,artist2, artist3] = await Artist.create({
         name: 'Panic! At the disco',
         information:'Американская рок-группа из Лас-Вегаса, штат Невада. На данный момент единственным участником группы является Брендон Ури',
-        image:'fixtures/patd.jpeg',
+        image:'patd.jpeg',
         isPublished: true,
     },{
         name: 'Pink floyd',
         information:'Британская рок-группа, знаменитая своими продолжительными композициями и объединёнными в тематические сюиты песнями, звуковыми экспериментами, философскими текстами, дизайном обложек альбомов и грандиозными концертными шоу.',
-        image:'fixtures/pinkfloyd.jpeg',
+        image:'pinkfloyd.jpeg',
         isPublished:true
     }, {
         name: 'Zemfira',
         information:'Российская рок-певица, музыкант, композитор, продюсер, поэтесса и автор песен. ',
-        image:'fixtures/zemfira.jpg',
+        image:'zemfira.jpg',
         isPublished: false
     });
 
     const [album1,album2, album3,album4, album5, album6, album7] = await Album.create({
         name: 'Too Weird to Live, Too Rare to Die!',
-        image:'fixtures/tooweirdtolivetooraretodie.jpg',
+        image:'tooweirdtolivetooraretodie.jpg',
         artist: artist1._id,
         year: 2013,
         isPublished: true
     }, {
         name: 'A Fever You Can’t Sweat Out',
-        image: 'fixtures/afeveryoucantsweatout.jpeg',
+        image: 'afeveryoucantsweatout.jpeg',
         artist: artist1._id,
         year:2005,
         isPublished: true
     }, {
         name: 'The Wall',
-        image:'fixtures/thewall.jpg',
+        image:'thewall.jpg',
         artist: artist2._id,
         year: 1979,
         isPublished: true
     }, {
         name: 'The dark side of the moon',
-        image: 'fixtures/thedarksideofthemoon.jpeg',
+        image: 'thedarksideofthemoon.jpeg',
         artist: artist2._id,
         year:1973,
         isPublished: true
     }, {
         name: 'Прости меня моя любовь',
-        image:'fixtures/pmml.jpg',
+        image:'pmml.jpg',
         artist: artist3._id,
         year: 2000,
         isPublished: false
     },{
         name: 'Четырнадцать недель тишины',
-        image:'fixtures/14nedel.jpg',
+        image:'14nedel.jpg',
         artist: artist3._id,
         year: 2007,
         isPublished: false
     },{
         name: 'Pray for the Wicked',
-        image:'fixtures/PrayForTheWicked.jpg',
+        image:'PrayForTheWicked.jpg',
         artist: artist1._id,
         year: 2018,
         isPublished: true

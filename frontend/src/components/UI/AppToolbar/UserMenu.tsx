@@ -3,7 +3,7 @@ import {Button, CircularProgress, Menu, MenuItem} from '@mui/material';
 import { User } from '../../../types';
 import { Link } from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../app/hooks';
-import {selectDeleteLoading} from '../../../features/users/usersSlice';
+import { selectDeleteLoading } from '../../../features/users/usersSlice';
 import { logout } from '../../../features/users/usersThunk';
 
 
@@ -32,6 +32,9 @@ const UserMenu: React.FC<Props> = ({user}) => {
         color="inherit"
       >
         Hello, {user.username}
+      </Button>
+      <Button color="inherit" component={Link} to="/artists/new">
+          Add artist
       </Button>
       <Menu
         anchorEl={anchorEl}

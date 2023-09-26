@@ -1,6 +1,11 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Grid,styled, Typography } from '@mui/material';
+import { Button, Card, CardContent, CardMedia, Grid, styled, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {  Link as NavLink } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { selectUser } from '../../../users/usersSlice';
+import { userRoles } from '../../../../constants';
+import {changeArtistPublish, deleteArtist, fetchArtists} from '../../artistsThunk';
 
 
 const Link = styled(NavLink)({
@@ -13,24 +18,57 @@ const Link = styled(NavLink)({
 interface Props {
   id: string
   name: string,
-  artistsImage: string | null
+  artistsImage: string | null,
+  isPublished: boolean
 }
 
 
-const ArtistBlock: React.FC<Props> = ({id, name, artistsImage}) => {
-  let productImage = 'http://localhost:8000' + '/' + artistsImage;
+const ArtistBlock: React.FC<Props> = ({id, name, artistsImage, isPublished}) => {
+  const user = useAppSelector(selectUser);
+  let productImage = 'http://localhost:8000' + '/images/' + artistsImage;
+  const dispatch = useAppDispatch();
+
+  const onPublic = async () => {
+    await dispatch(changeArtistPublish(id));
+    await dispatch(fetchArtists());
+  };
+
+  const onDelete = async () => {
+      const alert = window.confirm('Do you want to delete this artist?');
+      if (alert) {
+          await dispatch(deleteArtist(id));
+          await dispatch(fetchArtists());
+      }
+  };
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3} component={Link} to={'/albums/' + id}>
+    <Grid item xs={12} sm={6} md={4} lg={3} >
       <Card>
         <CardContent>
           <CardMedia
             sx={{height:240}}
             image={productImage}
             title={name}
+            component={Link} to={'/albums/' + id}
           />
           <Typography gutterBottom variant="h5" component="div">
             { name }
           </Typography>
+          {user && user.role === userRoles.admin && (
+            <>
+              {isPublished ? (
+                <>
+                    <Button  variant="outlined" style={{marginRight:'20px'}}>Posted</Button>
+                    <Button onClick={onDelete} variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
+                </>
+              ) : (
+                <>
+                    <Button variant="outlined" style={{color:'gray', borderColor:'gray', marginRight:'10px'}} >Not published</Button>
+                    <Button onClick={onPublic} variant="outlined">Public</Button>
+                </>
+              )
+              }
+            </>
+          )}
         </CardContent>
       </Card>
     </Grid>
