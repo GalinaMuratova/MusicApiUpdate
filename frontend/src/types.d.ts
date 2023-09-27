@@ -20,6 +20,14 @@ export interface Album {
     name: string
   }
   year: number;
+  image: string | null,
+  isPublished: boolean
+}
+
+export interface AlbumMutation {
+  name: string;
+  artist: string;
+  year: string;
   image: string | null
 }
 

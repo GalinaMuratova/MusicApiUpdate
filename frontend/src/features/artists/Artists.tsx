@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchArtists } from './artistsThunk';
-import ArtistBlock from './components/ArtistBlock/ArtistBlock';
+import ArtistBlock from './components/ArtistBlock';
 import {CircularProgress, Grid} from '@mui/material';
 import {selectArtistLoading, selectArtists} from "./artistsSlice";
 import {selectUser} from "../users/usersSlice";

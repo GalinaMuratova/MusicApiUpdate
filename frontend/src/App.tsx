@@ -10,6 +10,7 @@ import Tracks from './features/tracks/Tracks';
 import Login from './features/users/Login';
 import TracksHistory from './features/tracksHistory/TracksHistory';
 import NewArtist from './features/artists/NewArtist';
+import NewAlbum from "./features/albums/NewAlbum";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             <Routes>
               <Route path='/' element={(<Artists />)}/>
               <Route path = '/artists/new' element={(<NewArtist />)} />
+              <Route path = '/albums/new' element={(<NewAlbum />)} />
               <Route path='/albums/:id' element={(<Albums/>)}/>
               <Route path='/tracks/:id' element={(<Tracks />)} />
               <Route path='/register' element={(<Register />)} />

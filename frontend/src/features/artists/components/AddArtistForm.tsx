@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { ArtistMutation } from '../../../../types';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { ArtistMutation } from '../../../types';
 import { useNavigate } from 'react-router-dom';
 import { Grid, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton';
-import FileInput from '../../../../components/UI/FileInput/FileInput';
-import { selectCreateArtistLoading } from '../../artistsSlice';
-import { createArtist } from '../../artistsThunk';
+import FileInput from '../../../components/UI/FileInput/FileInput';
+import { selectCreateArtistLoading } from '../artistsSlice';
+import { createArtist } from '../artistsThunk';
 
 const AddArtistForm = () => {
   const dispatch = useAppDispatch();

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Container, Typography } from '@mui/material';
-import AddArtistForm from './components/AddArtistForm/AddArtistForm';
+import AddArtistForm from './components/AddArtistForm';
 import { useAppSelector } from '../../app/hooks';
 import { selectUser } from '../users/usersSlice';
 import { useNavigate } from 'react-router-dom';

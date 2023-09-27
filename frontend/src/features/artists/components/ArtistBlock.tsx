@@ -2,10 +2,11 @@ import React from 'react';
 import { Button, Card, CardContent, CardMedia, Grid, styled, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {  Link as NavLink } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { selectUser } from '../../../users/usersSlice';
-import { userRoles } from '../../../../constants';
-import {changeArtistPublish, deleteArtist, fetchArtists} from '../../artistsThunk';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { selectUser } from '../../users/usersSlice';
+import { userRoles } from '../../../constants';
+import {changeArtistPublish, deleteArtist, fetchArtists} from '../artistsThunk';
+import imgNotAvailable from "../../../assets/images/imgNotAvailable.png";
 
 
 const Link = styled(NavLink)({
@@ -22,10 +23,12 @@ interface Props {
   isPublished: boolean
 }
 
-
 const ArtistBlock: React.FC<Props> = ({id, name, artistsImage, isPublished}) => {
   const user = useAppSelector(selectUser);
-  let productImage = 'http://localhost:8000' + '/images/' + artistsImage;
+  let artistImage = imgNotAvailable;
+  if (artistsImage) {
+      artistImage = 'http://localhost:8000' + '/images/' + artistsImage;
+  }
   const dispatch = useAppDispatch();
 
   const onPublic = async () => {
@@ -46,7 +49,7 @@ const ArtistBlock: React.FC<Props> = ({id, name, artistsImage, isPublished}) => 
         <CardContent>
           <CardMedia
             sx={{height:240}}
-            image={productImage}
+            image={artistImage}
             title={name}
             component={Link} to={'/albums/' + id}
           />
@@ -57,7 +60,7 @@ const ArtistBlock: React.FC<Props> = ({id, name, artistsImage, isPublished}) => 
             <>
               {isPublished ? (
                 <>
-                    <Button  variant="outlined" style={{marginRight:'20px'}}>Posted</Button>
+                    <Button  variant="outlined" style={{marginRight:'20px'}} onClick={onPublic}>Posted</Button>
                     <Button onClick={onDelete} variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
                 </>
               ) : (

@@ -36,6 +36,9 @@ const UserMenu: React.FC<Props> = ({user}) => {
       <Button color="inherit" component={Link} to="/artists/new">
           Add artist
       </Button>
+      <Button color="inherit" component={Link} to="/albums/new">
+          Add album
+      </Button>
       <Menu
         anchorEl={anchorEl}
         keepMounted
