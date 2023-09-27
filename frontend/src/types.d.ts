@@ -39,7 +39,15 @@ export interface  Track {
   album: {
     _id: string,
     name: string
-  }
+  },
+  isPublished: boolean
+}
+
+export interface  TrackMutation {
+  name: string,
+  duration: string,
+  number: number,
+  album: string,
 }
 
 export interface TrackHistory {

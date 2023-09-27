@@ -20,7 +20,7 @@ const TrackSchema = new Schema({
     duration: String,
     number: {
         type: Number,
-        required: true
+        required: true,
     },
     isPublished:{
         type: Boolean,

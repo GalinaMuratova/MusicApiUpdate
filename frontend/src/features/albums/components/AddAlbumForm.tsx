@@ -10,6 +10,8 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import SendIcon from "@mui/icons-material/Send";
 import {selectCreateAlbumLoading} from "../albumsSlice";
 import {createAlbum} from "../albumsThunk";
+import {userRoles} from "../../../constants";
+import {selectUser} from "../../users/usersSlice";
 
 const AddAlbumForm = () => {
     const dispatch = useAppDispatch();
@@ -17,6 +19,7 @@ const AddAlbumForm = () => {
     const loading = useAppSelector(selectCreateAlbumLoading);
     const artists = useAppSelector(selectArtists);
     const artistsLoading = useAppSelector(selectArtistLoading);
+    const user = useAppSelector(selectUser);
 
     const [state, setState] = useState<AlbumMutation>({
       name:'',
@@ -33,7 +36,7 @@ const AddAlbumForm = () => {
       e.preventDefault();
       try {
         await dispatch(createAlbum(state)).unwrap();
-        navigate('/');
+        navigate(`/albums/${state.artist}`);
       } catch (e) {
         alert('Invalid field');
       }
@@ -55,6 +58,14 @@ const AddAlbumForm = () => {
       }
     };
 
+    const newArtists= artists.filter((el) => {
+        if (user && user.role === userRoles.admin) {
+            return true;
+        } else {
+            return el.isPublished;
+        }
+    });
+
     return !artistsLoading ? (
     <>
       <form
@@ -72,7 +83,7 @@ const AddAlbumForm = () => {
               name='artist'
             >
               <MenuItem disabled>Please select artist</MenuItem>
-              {artists.map((el) => (
+              {newArtists.map((el) => (
                 <MenuItem key={el._id} value={el._id}>
                   {el.name}
                 </MenuItem>

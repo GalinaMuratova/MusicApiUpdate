@@ -2,6 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../axiosApi';
 import {Album, AlbumMutation} from '../../types';
 
+export const fetchAllAlbums  =createAsyncThunk<Album[]>(
+    'albums/fetchAllItems',
+    async () => {
+        const albumsResponse = await axiosApi.get<Album[]>(`/albums`);
+        return albumsResponse.data;
+    }
+);
+
 export const fetchAlbums  =createAsyncThunk<Album[], string>(
   'albums/fetchAll',
   async (id) => {
