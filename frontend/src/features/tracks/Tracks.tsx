@@ -45,7 +45,14 @@ const Tracks = () => {
                     <Typography variant='h4' style={{textAlign:'center'}} >{artist}</Typography>
                     <Typography variant='h5' style={{textAlign:'center', color:'gray'}}>{album}</Typography>
                     {newTracks.map((el) => (
-                        <TrackBlock key={el._id} artist={artist} idTrack={el._id} name={el.name} number={el.number} duration={el.duration} isPublished={el.isPublished}/>
+                        <TrackBlock
+                            key={el._id}
+                            artist={artist}
+                            idTrack={el._id}
+                            name={el.name}
+                            number={el.number}
+                            duration={el.duration}
+                            isPublished={el.isPublished}/>
                     ))}
                 </>
             )}

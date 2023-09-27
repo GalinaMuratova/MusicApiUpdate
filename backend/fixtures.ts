@@ -18,7 +18,7 @@ const run = async () => {
         console.log('Collection were not present');
     }
 
-    const [artist1,artist2, artist3] = await Artist.create({
+    const [artist1,artist2, artist3, artist4] = await Artist.create({
         name: 'Panic! At the disco',
         information:'Американская рок-группа из Лас-Вегаса, штат Невада. На данный момент единственным участником группы является Брендон Ури',
         image:'patd.jpeg',
@@ -32,10 +32,15 @@ const run = async () => {
         name: 'Zemfira',
         information:'Российская рок-певица, музыкант, композитор, продюсер, поэтесса и автор песен. ',
         image:'zemfira.jpg',
+        isPublished: true
+    }, {
+        name: 'My Chemical Romance',
+        information:'My Chemical Romance (MCR) - это американская рок-группа, основанная в 2001 году. Группа прославилась своим уникальным стилем, который объединяет элементы панк-рока, эмо и альтернативного рока. Их музыка часто характеризуется глубокими текстами песен, эмоциональным вокалом и инновационным звуком. ',
+        image:'mcr.jpg',
         isPublished: false
     });
 
-    const [album1,album2, album3,album4, album5, album6, album7] = await Album.create({
+    const [album1,album2, album3,album4, album5, album6, album7, album8, album9] = await Album.create({
         name: 'Too Weird to Live, Too Rare to Die!',
         image:'tooweirdtolivetooraretodie.jpg',
         artist: artist1._id,
@@ -64,19 +69,31 @@ const run = async () => {
         image:'pmml.jpg',
         artist: artist3._id,
         year: 2000,
-        isPublished: false
+        isPublished: true
     },{
         name: 'Четырнадцать недель тишины',
         image:'14nedel.jpg',
         artist: artist3._id,
         year: 2007,
-        isPublished: false
+        isPublished: true
     },{
         name: 'Pray for the Wicked',
         image:'PrayForTheWicked.jpg',
         artist: artist1._id,
         year: 2018,
         isPublished: true
+    },{
+        name: 'Three Cheers for Sweet Revenge',
+        image:'Threecheersforsweetrevenge.jpg',
+        artist: artist4._id,
+        year: 2004,
+        isPublished: false
+    },{
+        name: 'The Black Parade',
+        image:'Theblackparade.jpg',
+        artist: artist4._id,
+        year: 2008,
+        isPublished: false
     });
     await Track.create ({
         name: 'This is Gospel',
@@ -203,25 +220,25 @@ const run = async () => {
         number: 1,
         album: album5._id,
         duration: '3:07',
-        isPublished: false
+        isPublished: true
     },{
         name: 'Ненавижу',
         number: 2,
         album: album5._id,
         duration: '3:24',
-        isPublished: false
+        isPublished: true
     },{
         name: 'Доказано',
         number: 3,
         album: album5._id,
         duration: '3:17',
-        isPublished: false
+        isPublished: true
     },{
         name: 'П.М.М.Л.',
         number: 4,
         album: album5._id,
         duration: '3:26',
-        isPublished: false
+        isPublished: true
     },{
         name: 'Не отпускай',
         number: 5,
@@ -239,19 +256,19 @@ const run = async () => {
         number: 1,
         album: album6._id,
         duration: '3:07',
-        isPublished: false
+        isPublished: true
     },{
         name: 'Кто?',
         number: 2,
         album: album6._id,
         duration: '3:24',
-        isPublished: false
+        isPublished: true
     },{
         name: 'Паранойя',
         number: 3,
         album: album6._id,
         duration: '3:17',
-        isPublished: false
+        isPublished: true
     },{
         name: 'Главное',
         number: 4,
@@ -300,7 +317,43 @@ const run = async () => {
         album:album7._id,
         duration:'3:39',
         isPublished: true
-    });
+    },{
+        name:'Helena',
+        number:1,
+        album:album8._id,
+        duration:'3:22',
+        isPublished: false
+    } ,{
+        name:'I’m Not Okay (I Promise)',
+        number:2,
+        album:album8._id,
+        duration:'3:11',
+        isPublished: false
+    },{
+        name:'The Ghost of You',
+        number:3,
+        album:album8._id,
+        duration:'2:49',
+        isPublished: false
+    },{
+        name:'Welcome to the Black Parade',
+        number:1,
+        album:album9._id,
+        duration:'3:22',
+        isPublished: false
+    } ,{
+        name:`I Dont Love You`,
+        number:2,
+        album:album9._id,
+        duration:'3:11',
+        isPublished: false
+    },{
+        name:'Teenagers',
+        number:3,
+        album:album9._id,
+        duration:'3:49',
+        isPublished: false
+    },);
     await User.create({
         username:'Anna',
         password:'123',

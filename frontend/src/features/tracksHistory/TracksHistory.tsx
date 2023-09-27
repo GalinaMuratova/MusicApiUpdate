@@ -36,7 +36,11 @@ const TracksHistory = () => {
           <>
             {reversedTracks.length > 0 ? (
                 reversedTracks.map((el) => (
-                    <TrackHistoryBlock key={el._id} nameArtist={el.artist} nameTrack={el.track.name} date={el.datetime} />
+                    <TrackHistoryBlock
+                        key={el._id}
+                        nameArtist={el.artist}
+                        nameTrack={el.track.name}
+                        date={el.datetime} />
                 ))
             ) : (
                 <div>No songs yet</div>

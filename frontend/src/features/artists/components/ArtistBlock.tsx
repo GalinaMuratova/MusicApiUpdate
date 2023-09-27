@@ -53,20 +53,28 @@ const ArtistBlock: React.FC<Props> = ({id, name, artistsImage, isPublished}) => 
             title={name}
             component={Link} to={'/albums/' + id}
           />
-          <Typography gutterBottom variant="h5" component="div">
-            { name }
-          </Typography>
+            <Typography gutterBottom variant="h5" component="div">
+                { name }
+            </Typography>
           {user && user.role === userRoles.admin && (
             <>
               {isPublished ? (
                 <>
-                    <Button  variant="outlined" style={{marginRight:'20px'}} onClick={onPublic}>Posted</Button>
-                    <Button onClick={onDelete} variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
+                    <Button variant="outlined" style={{marginRight:'20px'}} onClick={onPublic}>
+                        Posted
+                    </Button>
+                    <Button onClick={onDelete} variant="outlined" startIcon={<DeleteIcon />}>
+                        Delete
+                    </Button>
                 </>
               ) : (
                 <>
-                    <Button variant="outlined" style={{color:'gray', borderColor:'gray', marginRight:'10px'}} >Not published</Button>
-                    <Button onClick={onPublic} variant="outlined">Public</Button>
+                    <Button variant="outlined" style={{color:'gray', borderColor:'gray', marginRight:'10px'}} >
+                        Not published
+                    </Button>
+                    <Button onClick={onPublic} variant="outlined">
+                        Public
+                    </Button>
                 </>
               )
               }

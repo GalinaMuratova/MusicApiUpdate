@@ -36,7 +36,7 @@ const TrackBlock: React.FC<Props> = ({name, number, duration,idTrack, artist, is
     };
 
     const onDelete = async () => {
-        const alert = window.confirm('Do you want to delete this artist?');
+        const alert = window.confirm('Do you want to delete this track?');
         if (alert) {
             await dispatch(deleteTrack(idTrack));
             if (id) {
@@ -44,7 +44,6 @@ const TrackBlock: React.FC<Props> = ({name, number, duration,idTrack, artist, is
             }
         }
     };
-
 
   return (
         <Grid item xs={12} sm={6} md={4} lg={3} style={{margin:'10px'}}>
@@ -60,10 +59,10 @@ const TrackBlock: React.FC<Props> = ({name, number, duration,idTrack, artist, is
                         <Typography style={{marginLeft:'auto'}} variant="body1" component="div">
                             {duration}
                         </Typography>
-                      {user ? (
-                        <PlayCircleOutlineIcon style={{margin:'0 20px', width:'40px', color: playButtonClicked ? 'blue' : 'inherit'}} onClick={onClick}>
-                            Play
-                        </PlayCircleOutlineIcon>
+                        {user ? (
+                            <PlayCircleOutlineIcon style={{margin:'0 20px', width:'40px', color: playButtonClicked ? 'blue' : 'inherit'}} onClick={onClick}>
+                                Play
+                            </PlayCircleOutlineIcon>
                       ) : (
                         <></>
                       )}
@@ -71,13 +70,21 @@ const TrackBlock: React.FC<Props> = ({name, number, duration,idTrack, artist, is
                             <>
                                 {isPublished ? (
                                     <>
-                                        <Button  variant="outlined" style={{marginRight:'20px'}} onClick={onPublic}>Posted</Button>
-                                        <Button onClick={onDelete} variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
+                                        <Button variant="outlined" style={{marginRight:'20px'}} onClick={onPublic}>
+                                            Posted
+                                        </Button>
+                                        <Button onClick={onDelete} variant="outlined" startIcon={<DeleteIcon />}>
+                                            Delete
+                                        </Button>
                                     </>
                                 ) : (
                                     <>
-                                        <Button variant="outlined" style={{color:'gray', borderColor:'gray'}} >Not published</Button>
-                                        <Button onClick={onPublic} variant="outlined">Public</Button>
+                                        <Button variant="outlined" style={{color:'gray', borderColor:'gray'}} >
+                                            Not published
+                                        </Button>
+                                        <Button onClick={onPublic} variant="outlined">
+                                            Public
+                                        </Button>
                                     </>
                                 )
                                 }

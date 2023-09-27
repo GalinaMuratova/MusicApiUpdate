@@ -34,7 +34,12 @@ const Artists = () => {
         ) : (
             <Grid container item spacing={2}>
               {newArtists.map((el) => (
-                  <ArtistBlock key={el._id} id={el._id} name={el.name} artistsImage={el.image} isPublished={el.isPublished}/>
+                  <ArtistBlock
+                      key={el._id}
+                      id={el._id}
+                      name={el.name}
+                      artistsImage={el.image}
+                      isPublished={el.isPublished}/>
               ))}
             </Grid>
         )}

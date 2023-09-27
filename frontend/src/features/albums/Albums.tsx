@@ -29,18 +29,25 @@ const Albums = () => {
       return el.isPublished;
     }
   });
+
   return (
     <>
-        {loading ? (
-            <Grid item container justifyContent="center">
-                <CircularProgress />
-            </Grid>
-        ) : (
-            <>
-                <Typography component='h2' variant='h4' style={{textAlign:"center", margin:'20px 0'}}>{artist}</Typography>
-                <Grid container item spacing={3}>
+      {loading ? (
+          <Grid item container justifyContent="center">
+            <CircularProgress />
+          </Grid>
+      ) : (
+          <>
+            <Typography component='h2' variant='h4' style={{textAlign:"center", margin:'20px 0'}}>{artist}</Typography>
+            <Grid container item spacing={3}>
                     {newAlbums.map((el)=> (
-                        <AlbumBlock key={el._id} idAlbum={el._id} name={el.name} albumsImage={el.image} year={el.year} isPublished={el.isPublished} />
+                        <AlbumBlock
+                            key={el._id}
+                            idAlbum={el._id}
+                            name={el.name}
+                            albumsImage={el.image}
+                            year={el.year}
+                            isPublished={el.isPublished} />
                     ))}
                 </Grid>
             </>

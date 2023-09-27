@@ -39,7 +39,7 @@ const AlbumBlock: React.FC<Props> = ({idAlbum, name, albumsImage, year, isPublis
  };
 
  const onDelete = async () => {
-     const alert = window.confirm('Do you want to delete this artist?');
+     const alert = window.confirm('Do you want to delete this album?');
      if (alert) {
          await dispatch(deleteAlbum(idAlbum));
          if (id) {
@@ -68,13 +68,21 @@ const AlbumBlock: React.FC<Props> = ({idAlbum, name, albumsImage, year, isPublis
                         <>
                             {isPublished ? (
                                 <>
-                                    <Button  variant="outlined" style={{marginRight:'20px'}} onClick={onPublic}>Posted</Button>
-                                    <Button onClick={onDelete} variant="outlined" startIcon={<DeleteIcon />}>Delete</Button>
+                                    <Button variant="outlined" style={{marginRight:'20px'}} onClick={onPublic}>
+                                        Posted
+                                    </Button>
+                                    <Button onClick={onDelete} variant="outlined" startIcon={<DeleteIcon />}>
+                                        Delete
+                                    </Button>
                                 </>
                             ) : (
                                 <>
-                                    <Button variant="outlined" style={{color:'gray', borderColor:'gray'}} >Not published</Button>
-                                    <Button onClick={onPublic} variant="outlined">Public</Button>
+                                    <Button variant="outlined" style={{color:'gray', borderColor:'gray'}} >
+                                        Not published
+                                    </Button>
+                                    <Button onClick={onPublic} variant="outlined">
+                                        Public
+                                    </Button>
                                 </>
                             )
                             }
