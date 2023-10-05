@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchArtists } from './artistsThunk';
 import ArtistBlock from './components/ArtistBlock';
-import {CircularProgress, Grid} from '@mui/material';
-import {selectArtistLoading, selectArtists} from "./artistsSlice";
-import {selectUser} from "../users/usersSlice";
-import {userRoles} from "../../constants";
+import { CircularProgress, Grid } from '@mui/material';
+import { selectArtistLoading, selectArtists } from './artistsSlice';
+import { selectUser } from '../users/usersSlice';
+import { userRoles } from '../../constants';
 
 const Artists = () => {
   const dispatch = useAppDispatch();
@@ -27,22 +27,23 @@ const Artists = () => {
 
   return (
     <>
-        {loading ? (
-            <Grid item container justifyContent="center">
-                <CircularProgress />
-            </Grid>
-        ) : (
-            <Grid container item spacing={2}>
-              {newArtists.map((el) => (
-                  <ArtistBlock
-                      key={el._id}
-                      id={el._id}
-                      name={el.name}
-                      artistsImage={el.image}
-                      isPublished={el.isPublished}/>
-              ))}
-            </Grid>
-        )}
+      {loading ? (
+        <Grid item container justifyContent="center">
+          <CircularProgress />
+        </Grid>
+      ) : (
+        <Grid container item spacing={2}>
+          {newArtists.map((el) => (
+            <ArtistBlock
+              key={el._id}
+              id={el._id}
+              name={el.name}
+              artistsImage={el.image}
+              isPublished={el.isPublished}
+            />
+          ))}
+        </Grid>
+      )}
     </>
   );
 };

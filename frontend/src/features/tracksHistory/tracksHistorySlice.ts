@@ -1,20 +1,19 @@
-import { TrackHistory} from '../../types';
+import { TrackHistory } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { fetchTracksHistory, postTrackHistory } from './tracksHistoryThunk';
 
-
 interface TracksHistoryState {
-  items: TrackHistory[] ,
+  items: TrackHistory[];
   fetchLoading: boolean;
   createLoading: boolean;
 }
 
 const initialState: TracksHistoryState = {
   items: [],
-  fetchLoading:false,
-  createLoading:false,
-}
+  fetchLoading: false,
+  createLoading: false,
+};
 export const tracksHistorySlice = createSlice({
   name: 'tracksHistory',
   initialState,
@@ -23,7 +22,7 @@ export const tracksHistorySlice = createSlice({
     builder.addCase(fetchTracksHistory.pending, (state) => {
       state.fetchLoading = true;
     });
-    builder.addCase(fetchTracksHistory.fulfilled, (state, {payload: tracksHistory}) => {
+    builder.addCase(fetchTracksHistory.fulfilled, (state, { payload: tracksHistory }) => {
       state.fetchLoading = false;
       state.items = tracksHistory;
     });
@@ -33,7 +32,7 @@ export const tracksHistorySlice = createSlice({
     builder.addCase(postTrackHistory.pending, (state) => {
       state.createLoading = true;
     });
-    builder.addCase(postTrackHistory.fulfilled, (state, ) => {
+    builder.addCase(postTrackHistory.fulfilled, (state) => {
       state.createLoading = false;
     });
     builder.addCase(postTrackHistory.rejected, (state) => {
@@ -43,5 +42,6 @@ export const tracksHistorySlice = createSlice({
 });
 
 export const tracksHistoryReducer = tracksHistorySlice.reducer;
-export const selectTracksHistoryLoading = (state: RootState) => state.tracksHistoryReducer.fetchLoading;
+export const selectTracksHistoryLoading = (state: RootState) =>
+  state.tracksHistoryReducer.fetchLoading;
 export const selectTracksHistoryItems = (state: RootState) => state.tracksHistoryReducer.items;

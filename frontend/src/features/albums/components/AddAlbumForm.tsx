@@ -2,85 +2,82 @@ import React, { useEffect, useState } from 'react';
 import { fetchArtists } from '../../artists/artistsThunk';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { useNavigate } from 'react-router-dom';
-import {selectArtistLoading, selectArtists} from '../../artists/artistsSlice';
+import { selectArtistLoading, selectArtists } from '../../artists/artistsSlice';
 import { AlbumMutation } from '../../../types';
-import {CircularProgress, Grid, MenuItem, TextField} from "@mui/material";
-import FileInput from "../../../components/UI/FileInput/FileInput";
-import LoadingButton from "@mui/lab/LoadingButton";
-import SendIcon from "@mui/icons-material/Send";
-import {selectCreateAlbumLoading} from "../albumsSlice";
-import {createAlbum} from "../albumsThunk";
-import {userRoles} from "../../../constants";
-import {selectUser} from "../../users/usersSlice";
+import { CircularProgress, Grid, MenuItem, TextField } from '@mui/material';
+import FileInput from '../../../components/UI/FileInput/FileInput';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SendIcon from '@mui/icons-material/Send';
+import { selectCreateAlbumLoading } from '../albumsSlice';
+import { createAlbum } from '../albumsThunk';
+import { userRoles } from '../../../constants';
+import { selectUser } from '../../users/usersSlice';
 
 const AddAlbumForm = () => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    const loading = useAppSelector(selectCreateAlbumLoading);
-    const artists = useAppSelector(selectArtists);
-    const artistsLoading = useAppSelector(selectArtistLoading);
-    const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const loading = useAppSelector(selectCreateAlbumLoading);
+  const artists = useAppSelector(selectArtists);
+  const artistsLoading = useAppSelector(selectArtistLoading);
+  const user = useAppSelector(selectUser);
 
-    const [state, setState] = useState<AlbumMutation>({
-      name:'',
-      year: '',
-      artist:'',
-      image: null
+  const [state, setState] = useState<AlbumMutation>({
+    name: '',
+    year: '',
+    artist: '',
+    image: null,
+  });
+
+  useEffect(() => {
+    dispatch(fetchArtists());
+  }, [dispatch]);
+
+  const submitFormHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await dispatch(createAlbum(state)).unwrap();
+      navigate(`/albums/${state.artist}`);
+    } catch (e) {
+      alert('Invalid field');
+    }
+  };
+
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setState((prevState) => {
+      return { ...prevState, [name]: value };
     });
+  };
+  const filesInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+    if (files) {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
+    }
+  };
 
-    useEffect(() => {
-      dispatch(fetchArtists())
-    }, [dispatch]);
+  const newArtists = artists.filter((el) => {
+    if (user && user.role === userRoles.admin) {
+      return true;
+    } else {
+      return el.isPublished;
+    }
+  });
 
-    const submitFormHandler = async (e: React.FormEvent) => {
-      e.preventDefault();
-      try {
-        await dispatch(createAlbum(state)).unwrap();
-        navigate(`/albums/${state.artist}`);
-      } catch (e) {
-        alert('Invalid field');
-      }
-    };
-
-    const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const {name, value} = e.target;
-      setState(prevState => {
-        return {...prevState, [name]: value};
-      });
-    };
-    const filesInputChangeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
-      const {name, files} = e.target;
-      if (files) {
-        setState((prevState) => ({
-          ...prevState,
-          [name]: files[0]
-        }));
-      }
-    };
-
-    const newArtists= artists.filter((el) => {
-        if (user && user.role === userRoles.admin) {
-            return true;
-        } else {
-            return el.isPublished;
-        }
-    });
-
-    return !artistsLoading ? (
+  return !artistsLoading ? (
     <>
-      <form
-        autoComplete="on"
-        onSubmit={submitFormHandler}
-      >
+      <form autoComplete="on" onSubmit={submitFormHandler}>
         <Grid container direction="column" spacing={2}>
           <Grid item xs>
             <TextField
               required
               select
-              label='Artist'
+              label="Artist"
               value={state.artist}
               onChange={inputChangeHandler}
-              name='artist'
+              name="artist"
             >
               <MenuItem disabled>Please select artist</MenuItem>
               {newArtists.map((el) => (
@@ -112,10 +109,7 @@ const AddAlbumForm = () => {
             />
           </Grid>
           <Grid item xs>
-            <FileInput
-              onChange={filesInputChangeHandler}
-              name='image'
-              label='image' />
+            <FileInput onChange={filesInputChangeHandler} name="image" label="image" />
           </Grid>
           <Grid item xs>
             <LoadingButton
@@ -132,7 +126,9 @@ const AddAlbumForm = () => {
         </Grid>
       </form>
     </>
-  ) : <CircularProgress />
+  ) : (
+    <CircularProgress />
+  );
 };
 
 export default AddAlbumForm;

@@ -12,7 +12,7 @@ const Link = styled(NavLink)({
   textDecoration: 'none',
   '&:hover': {
     color: 'inherit',
-  }
+  },
 });
 
 const AppToolbar = () => {
@@ -24,13 +24,7 @@ const AppToolbar = () => {
           <MusicNoteRoundedIcon />
           <Link to="/">Music</Link>
         </Typography>
-        <Grid item>
-          {user ? (
-            <UserMenu user={user}/>
-          ) : (
-            <AnonymousMenu/>
-          )}
-        </Grid>
+        <Grid item>{user ? <UserMenu user={user} /> : <AnonymousMenu />}</Grid>
       </Toolbar>
     </AppBar>
   );

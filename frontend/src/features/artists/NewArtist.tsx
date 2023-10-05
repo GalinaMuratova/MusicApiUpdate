@@ -9,7 +9,7 @@ const NewArtist = () => {
   const user = useAppSelector(selectUser);
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!user) {
       navigate('/');
     }
@@ -17,8 +17,8 @@ const NewArtist = () => {
 
   return (
     <>
-      <Container maxWidth='md' >
-        <Typography variant='h4' sx={{mb:3}}>
+      <Container maxWidth="md">
+        <Typography variant="h4" sx={{ mb: 3 }}>
           Add new artist
         </Typography>
         <AddArtistForm />

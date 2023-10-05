@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-import {Button, CircularProgress, Menu, MenuItem} from '@mui/material';
+import { Button, CircularProgress, Menu, MenuItem } from '@mui/material';
 import { User } from '../../../types';
 import { Link } from 'react-router-dom';
-import {useAppDispatch, useAppSelector} from '../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { selectDeleteLoading } from '../../../features/users/usersSlice';
 import { logout } from '../../../features/users/usersThunk';
 import imgNotAvailable from '../../../assets/images/imgNotAvailable.png';
 
-
 interface Props {
   user: User;
 }
-const UserMenu: React.FC<Props> = ({user}) => {
+const UserMenu: React.FC<Props> = ({ user }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectDeleteLoading);
@@ -33,36 +32,36 @@ const UserMenu: React.FC<Props> = ({user}) => {
   return (
     <>
       <img
-        style={{width:'40px', height:'40px', borderRadius:'50%', marginBottom:'-15px', objectFit: 'cover'}}
+        style={{
+          width: '40px',
+          height: '40px',
+          borderRadius: '50%',
+          marginBottom: '-15px',
+          objectFit: 'cover',
+        }}
         src={avatarImage}
         alt={user.username}
       />
-      <Button
-        onClick={handleClick}
-        color="inherit"
-      >
+      <Button onClick={handleClick} color="inherit">
         Hello, {user.displayName}
       </Button>
       <Button color="inherit" component={Link} to="/artists/new">
-          Add artist
+        Add artist
       </Button>
       <Button color="inherit" component={Link} to="/albums/new">
-          Add album
+        Add album
       </Button>
       <Button color="inherit" component={Link} to="/tracks/new">
-          Add track
+        Add track
       </Button>
 
-      <Menu
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
+      <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem>Profile</MenuItem>
-        <MenuItem component={Link}  to='/track_history'>My track history</MenuItem>
+        <MenuItem component={Link} to="/track_history">
+          My track history
+        </MenuItem>
         <MenuItem onClick={handleLogout}>
-            {loading ? <CircularProgress size={24} /> : 'Logout'}
+          {loading ? <CircularProgress size={24} /> : 'Logout'}
         </MenuItem>
       </Menu>
     </>

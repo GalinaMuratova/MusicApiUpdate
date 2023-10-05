@@ -5,7 +5,7 @@ import {
   RegisterMutation,
   RegisterResponse,
   User,
-  ValidationError
+  ValidationError,
 } from '../../types';
 import axiosApi from '../../axiosApi';
 import { isAxiosError } from 'axios';
@@ -15,35 +15,31 @@ export const register = createAsyncThunk<
   RegisterResponse,
   RegisterMutation,
   { rejectValue: ValidationError }
->(
-  'users/register',
-  async (registerMutation, {rejectWithValue})  => {
+>('users/register', async (registerMutation, { rejectWithValue }) => {
+  const formData = new FormData();
 
-    const formData = new FormData();
+  const keys = Object.keys(registerMutation) as (keyof RegisterMutation)[];
 
-    const keys = Object.keys(registerMutation) as (keyof RegisterMutation)[];
-
-    keys.forEach(key => {
-      const value = registerMutation[key];
-      if (value !== null) {
-        formData.append(key,value);
-      }
-    })
-    try {
-      const response = await axiosApi.post<RegisterResponse>('/users', formData);
-      return response.data;
-    } catch (e) {
-      if (isAxiosError(e) && e.response && e.response.status === 400) {
-        return rejectWithValue(e.response.data);
-      }
-      throw e;
+  keys.forEach((key) => {
+    const value = registerMutation[key];
+    if (value !== null) {
+      formData.append(key, value);
     }
+  });
+  try {
+    const response = await axiosApi.post<RegisterResponse>('/users', formData);
+    return response.data;
+  } catch (e) {
+    if (isAxiosError(e) && e.response && e.response.status === 400) {
+      return rejectWithValue(e.response.data);
+    }
+    throw e;
   }
-);
+});
 
-export const login = createAsyncThunk<User, LoginMutation, {rejectValue: GlobalError}>(
+export const login = createAsyncThunk<User, LoginMutation, { rejectValue: GlobalError }>(
   'users/login',
-  async (loginMutation, {rejectWithValue}) => {
+  async (loginMutation, { rejectWithValue }) => {
     try {
       const response = await axiosApi.post<RegisterResponse>('/users/sessions', loginMutation);
       return response.data.user;
@@ -53,7 +49,7 @@ export const login = createAsyncThunk<User, LoginMutation, {rejectValue: GlobalE
       }
       throw e;
     }
-  }
+  },
 );
 
 export const googleLogin = createAsyncThunk<User, string, { rejectValue: GlobalError }>(
@@ -72,10 +68,7 @@ export const googleLogin = createAsyncThunk<User, string, { rejectValue: GlobalE
   },
 );
 
-export const logout = createAsyncThunk<void, void>(
-  'users/logout',
-  async (_, {dispatch}) => {
-    await axiosApi.delete('/users/sessions');
-    dispatch(unsetUser());
-  }
-);
+export const logout = createAsyncThunk<void, void>('users/logout', async (_, { dispatch }) => {
+  await axiosApi.delete('/users/sessions');
+  dispatch(unsetUser());
+});

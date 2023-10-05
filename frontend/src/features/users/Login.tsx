@@ -11,11 +11,11 @@ import {
   Grid,
   Link,
   TextField,
-  Typography
+  Typography,
 } from '@mui/material';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {selectLoginError, selectLoginLoading} from './usersSlice';
+import { selectLoginError, selectLoginLoading } from './usersSlice';
 import { googleLogin, login } from './usersThunk';
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -31,15 +31,15 @@ const Login = () => {
   const loading = useAppSelector(selectLoginLoading);
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setState(prevState => ({...prevState, [name]: value}));
+    const { name, value } = event.target;
+    setState((prevState) => ({ ...prevState, [name]: value }));
   };
   const submitFormHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       await dispatch(login(state)).unwrap();
       navigate('/');
-    }catch {
+    } catch {
       //
     }
   };
@@ -58,8 +58,8 @@ const Login = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-          <PersonRoundedIcon/>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <PersonRoundedIcon />
         </Avatar>
         <Box sx={{ pt: 2 }}>
           <GoogleLogin
@@ -77,14 +77,11 @@ const Login = () => {
           Sign In
         </Typography>
         {error && (
-          <Alert
-            severity="error"
-            sx={{mt: 3, width: '100%'}}
-          >
+          <Alert severity="error" sx={{ mt: 3, width: '100%' }}>
             {error.error}
           </Alert>
         )}
-        <Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
+        <Box component="form" onSubmit={submitFormHandler} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -108,17 +105,12 @@ const Login = () => {
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{mt: 3, mb: 2}}
-          >
-            {loading ? <CircularProgress style={{ color: '#fafafa' }}  size={24} /> : 'Sign Up'}
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            {loading ? <CircularProgress style={{ color: '#fafafa' }} size={24} /> : 'Sign Up'}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link component={RouterLink} to="/register" variant="body2" >
+              <Link component={RouterLink} to="/register" variant="body2">
                 Or sign up
               </Link>
             </Grid>

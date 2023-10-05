@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { RegisterMutation } from '../../types';
-import {Avatar, Box, Button, CircularProgress, Container, Grid, Link, TextField, Typography} from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import {selectRegisterError, selectRegisterLoading} from './usersSlice';
+import { selectRegisterError, selectRegisterLoading } from './usersSlice';
 import { register } from './usersThunk';
 import FileInput from '../../components/UI/FileInput/FileInput';
 
@@ -13,20 +23,20 @@ const Register = () => {
     username: '',
     password: '',
     avatar: null,
-    displayName:''
+    displayName: '',
   });
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectRegisterError);
   const navigate = useNavigate();
   const loading = useAppSelector(selectRegisterLoading);
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = event.target;
-    setState(prevState => {
-      return {...prevState, [name]: value};
+    const { name, value } = event.target;
+    setState((prevState) => {
+      return { ...prevState, [name]: value };
     });
   };
 
-  const submitFormHandler = async(event: React.FormEvent) => {
+  const submitFormHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
       await dispatch(register(state)).unwrap();
@@ -44,12 +54,12 @@ const Register = () => {
     }
   };
 
-  const filesInputChangeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
-    const {name, files} = e.target;
+  const filesInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
     if (files) {
       setState((prevState) => ({
         ...prevState,
-        [name]: files[0]
+        [name]: files[0],
       }));
     }
   };
@@ -63,13 +73,13 @@ const Register = () => {
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-          <LockOutlinedIcon/>
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <Box component="form" noValidate onSubmit={submitFormHandler} sx={{mt: 3}}>
+        <Box component="form" noValidate onSubmit={submitFormHandler} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -109,10 +119,7 @@ const Register = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <FileInput
-                onChange={filesInputChangeHandler}
-                name='image'
-                label='image' />
+              <FileInput onChange={filesInputChangeHandler} name="image" label="image" />
             </Grid>
           </Grid>
           <Button
@@ -135,6 +142,6 @@ const Register = () => {
       </Box>
     </Container>
   );
-}
+};
 
 export default Register;

@@ -1,28 +1,35 @@
 import { Album } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
-import {changeAlbumPublish, createAlbum, deleteAlbum, fetchAlbums, fetchAllAlbums, fetchOneAlbum} from './albumsThunk';
-import {RootState} from "../../app/store";
+import {
+  changeAlbumPublish,
+  createAlbum,
+  deleteAlbum,
+  fetchAlbums,
+  fetchAllAlbums,
+  fetchOneAlbum,
+} from './albumsThunk';
+import { RootState } from '../../app/store';
 
 interface AlbumsState {
   items: Album[];
   allAlbums: Album[];
   artist: string;
-  fetchAllLoading:boolean;
+  fetchAllLoading: boolean;
   fetchLoading: boolean;
-  createLoading:boolean;
+  createLoading: boolean;
   changeLoading: boolean;
-  deleteLoading:boolean
+  deleteLoading: boolean;
 }
 
 const initialState: AlbumsState = {
   items: [],
-  allAlbums:[],
-  artist:'',
-  fetchAllLoading:false,
+  allAlbums: [],
+  artist: '',
+  fetchAllLoading: false,
   fetchLoading: false,
-  createLoading:false,
-  changeLoading:false,
-  deleteLoading:false
+  createLoading: false,
+  changeLoading: false,
+  deleteLoading: false,
 };
 
 export const albumsSlice = createSlice({
@@ -33,7 +40,7 @@ export const albumsSlice = createSlice({
     builder.addCase(fetchAllAlbums.pending, (state) => {
       state.fetchAllLoading = true;
     });
-    builder.addCase(fetchAllAlbums.fulfilled, (state, {payload: artists}) => {
+    builder.addCase(fetchAllAlbums.fulfilled, (state, { payload: artists }) => {
       state.fetchAllLoading = false;
       state.allAlbums = artists;
     });
@@ -44,10 +51,12 @@ export const albumsSlice = createSlice({
     builder.addCase(fetchAlbums.pending, (state) => {
       state.fetchLoading = true;
     });
-    builder.addCase(fetchAlbums.fulfilled, (state, {payload: artists}) => {
+    builder.addCase(fetchAlbums.fulfilled, (state, { payload: artists }) => {
       state.fetchLoading = false;
       state.items = artists;
-      state.artist = artists.map((el) => {return el.artist.name})[0];
+      state.artist = artists.map((el) => {
+        return el.artist.name;
+      })[0];
     });
     builder.addCase(fetchAlbums.rejected, (state) => {
       state.fetchLoading = false;
@@ -56,7 +65,7 @@ export const albumsSlice = createSlice({
     builder.addCase(fetchOneAlbum.pending, (state) => {
       state.fetchLoading = true;
     });
-    builder.addCase(fetchOneAlbum.fulfilled, (state, {payload: artists}) => {
+    builder.addCase(fetchOneAlbum.fulfilled, (state, { payload: artists }) => {
       state.fetchLoading = false;
       state.artist = artists.artist.name;
     });
@@ -93,7 +102,7 @@ export const albumsSlice = createSlice({
     builder.addCase(deleteAlbum.rejected, (state) => {
       state.deleteLoading = false;
     });
-  }
+  },
 });
 
 export const albumsReducer = albumsSlice.reducer;

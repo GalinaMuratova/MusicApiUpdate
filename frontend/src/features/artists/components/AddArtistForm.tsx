@@ -14,9 +14,9 @@ const AddArtistForm = () => {
   const navigate = useNavigate();
   const loading = useAppSelector(selectCreateArtistLoading);
   const [state, setState] = useState<ArtistMutation>({
-    name:'',
-    information:'',
-    image: null
+    name: '',
+    information: '',
+    image: null,
   });
 
   const submitFormHandler = async (e: React.FormEvent) => {
@@ -30,27 +30,24 @@ const AddArtistForm = () => {
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
-    setState(prevState => {
-      return {...prevState, [name]: value};
+    const { name, value } = e.target;
+    setState((prevState) => {
+      return { ...prevState, [name]: value };
     });
   };
 
-  const filesInputChangeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
-    const {name, files} = e.target;
+  const filesInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
     if (files) {
       setState((prevState) => ({
         ...prevState,
-        [name]: files[0]
+        [name]: files[0],
       }));
     }
   };
   return (
     <>
-      <form
-        autoComplete="on"
-        onSubmit={submitFormHandler}
-      >
+      <form autoComplete="on" onSubmit={submitFormHandler}>
         <Grid container direction="column" spacing={2}>
           <Grid item xs>
             <TextField
@@ -74,10 +71,7 @@ const AddArtistForm = () => {
             />
           </Grid>
           <Grid item xs>
-            <FileInput
-              onChange={filesInputChangeHandler}
-              name='image'
-              label='image' />
+            <FileInput onChange={filesInputChangeHandler} name="image" label="image" />
           </Grid>
           <Grid item xs>
             <LoadingButton
