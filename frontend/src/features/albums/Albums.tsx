@@ -20,7 +20,7 @@ const Albums = () => {
   useEffect(() => {
     if (id) {
         dispatch(fetchAlbums(id));
-    }}, [dispatch]);
+    }}, [dispatch, id]);
 
   const newAlbums = albums.filter((el) => {
     if (user && user.role === userRoles.admin) {

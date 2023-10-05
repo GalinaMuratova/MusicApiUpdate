@@ -24,7 +24,7 @@ const TracksHistory = () => {
     if (!user) {
       navigate('/login');
     }
-  }, [user])
+  }, [user, navigate])
 
   return (
     <>

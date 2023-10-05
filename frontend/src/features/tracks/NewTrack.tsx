@@ -13,7 +13,7 @@ const NewTrack = () => {
         if (!user) {
             navigate('/');
         }
-    }, [user]);
+    }, [user, navigate]);
 
     return (
         <>

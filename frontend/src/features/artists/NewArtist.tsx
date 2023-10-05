@@ -13,7 +13,7 @@ const NewArtist = () => {
     if (!user) {
       navigate('/');
     }
-  }, [user]);
+  }, [user, navigate]);
 
   return (
     <>

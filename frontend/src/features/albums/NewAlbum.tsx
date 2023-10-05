@@ -13,7 +13,7 @@ const NewAlbum = () => {
         if (!user) {
             navigate('/');
         }
-    }, [user]);
+    }, [user, navigate]);
 
     return (
         <>

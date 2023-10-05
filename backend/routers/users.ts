@@ -29,6 +29,8 @@ usersRouter.post('/', imagesUpload.single('image'), async(req, res, next) => {
 });
 
 usersRouter.post('/google', async (req, res, next) => {
+    console.log(req.body.credential);
+    console.log(config.google.clientId);
     try {
         const ticket = await client.verifyIdToken({
             idToken: req.body.credential,
@@ -51,7 +53,7 @@ usersRouter.post('/google', async (req, res, next) => {
 
         let user = await User.findOne({ googleID: id });
 
-        if (!user) {
+        if (!user || displayName) {
             user = new User({
                 username: email,
                 password: crypto.randomUUID(),
