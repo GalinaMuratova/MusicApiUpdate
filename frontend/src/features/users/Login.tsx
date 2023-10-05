@@ -44,7 +44,6 @@ const Login = () => {
     }
   };
   const googleLoginHandler = async (credential: string) => {
-    console.log(credential, 'function');
     await dispatch(googleLogin(credential)).unwrap();
     navigate('/');
   };

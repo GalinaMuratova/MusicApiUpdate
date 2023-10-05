@@ -30,15 +30,13 @@ const UserMenu: React.FC<Props> = ({user}) => {
   if (user.avatar) {
     avatarImage = 'http://localhost:8000' + '/images/' + user.avatar;
   }
-
-  let image = <>img</>
-
-  if (user.avatar) {
-    image = <img style={{width:'40px', height:'40px', borderRadius:'50%', marginBottom:'-15px'}} src={avatarImage} alt={user.username}/>;
-  }
   return (
     <>
-      {image}
+      <img
+        style={{width:'40px', height:'40px', borderRadius:'50%', marginBottom:'-15px', objectFit: 'cover'}}
+        src={avatarImage}
+        alt={user.username}
+      />
       <Button
         onClick={handleClick}
         color="inherit"

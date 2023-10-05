@@ -29,12 +29,10 @@ usersRouter.post('/', imagesUpload.single('image'), async(req, res, next) => {
 });
 
 usersRouter.post('/google', async (req, res, next) => {
-    console.log(req.body.credential);
-    console.log(config.google.clientId);
     try {
         const ticket = await client.verifyIdToken({
             idToken: req.body.credential,
-            audience: config.google.clientId,
+            // audience: config.google.clientId,
         });
 
         const payload = ticket.getPayload();
