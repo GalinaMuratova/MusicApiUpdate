@@ -61,10 +61,11 @@ export interface TrackHistory {
   artist: string
 }
 
-
 export interface RegisterMutation {
   username: string,
-  password: string
+  password: string,
+  displayName: string,
+  avatar: string | null,
 }
 
 export interface LoginMutation {
@@ -76,7 +77,9 @@ export interface User {
   _id: string;
   username: string;
   token: string;
-  role: string
+  role: string,
+  avatar: string | null,
+  displayName: string
 }
 
 export interface RegisterResponse {

@@ -1,36 +1,38 @@
 import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { RegisterMutation } from '../../types';
 import {Avatar, Box, Button, CircularProgress, Container, Grid, Link, TextField, Typography} from '@mui/material';
-
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {selectRegisterError, selectRegisterLoading} from './usersSlice';
 import { register } from './usersThunk';
+import FileInput from '../../components/UI/FileInput/FileInput';
 
 const Register = () => {
   const [state, setState] = useState<RegisterMutation>({
     username: '',
-    password: ''
+    password: '',
+    avatar: null,
+    displayName:''
   });
   const dispatch = useAppDispatch();
   const error = useAppSelector(selectRegisterError);
   const navigate = useNavigate();
   const loading = useAppSelector(selectRegisterLoading);
-
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = event.target;
     setState(prevState => {
       return {...prevState, [name]: value};
     });
   };
-  const submitFormHandler = async (event: React.FormEvent) => {
+
+  const submitFormHandler = async(event: React.FormEvent) => {
     event.preventDefault();
     try {
       await dispatch(register(state)).unwrap();
       navigate('/login');
     } catch (e) {
-      // error happened
+      // error
     }
   };
 
@@ -41,11 +43,21 @@ const Register = () => {
       return undefined;
     }
   };
+
+  const filesInputChangeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const {name, files} = e.target;
+    if (files) {
+      setState((prevState) => ({
+        ...prevState,
+        [name]: files[0]
+      }));
+    }
+  };
   return (
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
-          marginTop: 2,
+          marginTop: 8,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -84,18 +96,37 @@ const Register = () => {
                 helperText={getFieldError('password')}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                label="Dispaly name"
+                name="displayName"
+                autoComplete="new-username"
+                value={state.displayName}
+                onChange={inputChangeHandler}
+                error={Boolean(getFieldError('displayName'))}
+                helperText={getFieldError('displayName')}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <FileInput
+                onChange={filesInputChangeHandler}
+                name='image'
+                label='image' />
+            </Grid>
           </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{mt: 3, mb: 2}}
+            sx={{ mt: 3, mb: 2 }}
+            disabled={loading}
           >
-            {loading ? <CircularProgress size={24} style={{ color: '#fafafa' }} /> : 'Sign Up'}
+            {loading ? <CircularProgress size={24} /> : 'Sign Up'}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
-              <Link component={NavLink} to="/login" variant="body2">
+              <Link component={RouterLink} to="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
             </Grid>
@@ -104,6 +135,6 @@ const Register = () => {
       </Box>
     </Container>
   );
-};
+}
 
 export default Register;

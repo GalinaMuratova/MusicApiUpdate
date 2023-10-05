@@ -358,12 +358,14 @@ const run = async () => {
         username:'Anna',
         password:'123',
         token: crypto.randomUUID(),
-        role:'admin'
+        role:'admin',
+        displayName:'Anna Gavalda',
     },{
         username:'Sam',
         password:'456',
         token: crypto.randomUUID(),
-        role:'user'
+        role:'user',
+        displayName:'Sam Smith'
     });
     await db.close();
 };

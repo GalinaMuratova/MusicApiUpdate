@@ -16,7 +16,8 @@ import {
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {selectLoginError, selectLoginLoading} from './usersSlice';
-import { login } from './usersThunk';
+import { googleLogin, login } from './usersThunk';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const [state, setState] = useState<LoginMutation>({
@@ -42,6 +43,10 @@ const Login = () => {
       //
     }
   };
+  const googleLoginHandler = async (credential: string) => {
+    await dispatch(googleLogin(credential)).unwrap();
+    navigate('/');
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -56,6 +61,18 @@ const Login = () => {
         <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
           <PersonRoundedIcon/>
         </Avatar>
+        <Box sx={{ pt: 2 }}>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              if (credentialResponse.credential) {
+                void googleLoginHandler(credentialResponse.credential);
+              }
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+        </Box>
         <Typography component="h1" variant="h5">
           Sign In
         </Typography>

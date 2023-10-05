@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../app/hooks';
 import { selectDeleteLoading } from '../../../features/users/usersSlice';
 import { logout } from '../../../features/users/usersThunk';
+import imgNotAvailable from '../../../assets/images/imgNotAvailable.png';
 
 
 interface Props {
@@ -25,13 +26,24 @@ const UserMenu: React.FC<Props> = ({user}) => {
     dispatch(logout());
   };
 
+  let avatarImage = imgNotAvailable;
+  if (user.avatar) {
+    avatarImage = 'http://localhost:8000' + '/images/' + user.avatar;
+  }
+
+  let image = <>img</>
+
+  if (user.avatar) {
+    image = <img style={{width:'40px', height:'40px', borderRadius:'50%', marginBottom:'-15px'}} src={avatarImage} alt={user.username}/>;
+  }
   return (
     <>
+      {image}
       <Button
         onClick={handleClick}
         color="inherit"
       >
-        Hello, {user.username}
+        Hello, {user.displayName}
       </Button>
       <Button color="inherit" component={Link} to="/artists/new">
           Add artist
