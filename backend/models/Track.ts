@@ -1,31 +1,31 @@
-import mongoose from "mongoose";
-import Album from "./Album";
+import mongoose from 'mongoose';
+import Album from './Album';
 
 const Schema = mongoose.Schema;
 
 const TrackSchema = new Schema({
-   name: {
-       type: String,
-       required: true
-   },
-    album: {
-       type: mongoose.Types.ObjectId,
-        required: true,
-        ref: 'Album',
-        validate: {
-            validator: async (value:mongoose.Types.ObjectId) => await Album.findById(value),
-            message: 'There is no such album'
-        }
+  name: {
+    type: String,
+    required: true,
+  },
+  album: {
+    type: mongoose.Types.ObjectId,
+    required: true,
+    ref: 'Album',
+    validate: {
+      validator: async (value: mongoose.Types.ObjectId) => await Album.findById(value),
+      message: 'There is no such album',
     },
-    duration: String,
-    number: {
-        type: Number,
-        required: true,
-    },
-    isPublished:{
-        type: Boolean,
-        default:false
-    }
+  },
+  duration: String,
+  number: {
+    type: Number,
+    required: true,
+  },
+  isPublished: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Track = mongoose.model('Track', TrackSchema);
